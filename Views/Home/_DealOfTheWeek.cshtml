@@ -1,0 +1,72 @@
+﻿@using Helper;
+@model PreShop.FrontEnd.Helpers.Products.ProductsHelper
+@{
+    var products = Model.GetDealsOfTheWeeks();
+    if (products.Count() > 0)
+    {
+        <div class="countdown_product">
+            <div class="container">
+                <div class="countdown_product_inner">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="countdown_product_title">
+                                <h3>Deals Of The Weeks</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="countdown_produtc_active owl-carousel">
+                            @foreach (var product in products)
+                            {
+                                <div class="col-12">
+                                    <div class="countdown_produtc_wrapper">
+                                        <div class="single_countdown_product">
+                                            <div class="countdown_product_thumb" style="    width: 20%!important;">
+                                                <a href='@Url.Action("Index", "ProductDetails", new { P = Helper.Security.Encrypt(product.ProductID.ToString()) })'>
+                                                    <img src="@PreShop.Common.StoreHostName@product.Image" onerror="this.src='/assets/img/product/product18.jpg'" alt="">
+                                                </a>
+                                                @{
+                                                    var displayPercent = product.SalePercent > 0 ? "visible" : "hidden";
+                                                }
+                                                <div class="sale_percent" style="visibility:@displayPercent">
+                                                    <span>@(product.SalePercent)%</span>
+                                                </div>
+                                            </div>
+                                            <div class="countdown_product_content">
+                                                <div class="countdown_product_ratting">
+                                                    <ul>
+                                                        <li><a href="#"><i class="ion-star"></i></a></li>
+                                                        <li><a href="#"><i class="ion-star"></i></a></li>
+                                                        <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                        <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                        <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <h3><a href='@Url.Action("Index", "ProductDetails", new { P = Helper.Security.Encrypt(product.ProductID.ToString()) })'>@product.Product</a></h3>
+                                                <div class="countdown_product_price">
+                                                    @{
+                                                        string unit = !product.Unit.IsNull() ? "/" + product.Unit : "";
+                                                    }
+                                                    <span class="old_price">@Helper.SpartansHelper.FormatCurrencyDisplay(product.ActualPrice.ToString())@unit</span>
+                                                    <span class="current_price">@Helper.SpartansHelper.FormatCurrencyDisplay(product.Price.ToString())@unit</span>
+                                                </div>
+                                                <div class="countdown_product_desc">
+                                                    <p style="font-size:16px"><a title="View all products of this store" href='@Url.Action("Index","Products",new {str=Helper.Security.Encrypt(product.StoreID.ToString()) })'><i class="fas fa-store-alt"></i>&nbsp;@product.StoreName</a></p>
+                                                </div>
+                                                <div class="product_timing">
+                                                    <h3>Hurry up!</h3>
+                                                    <p>Offer ends in:</p>
+                                                    <div data-countdown='@product.EndDate.ToShortDateString()'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

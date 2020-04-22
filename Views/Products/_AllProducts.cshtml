@@ -1,0 +1,49 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PreShop.FrontEnd.Helpers.Products.ProductsHelper
+
+<div class="shop_tab_product">
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="large" role="tabpanel">
+            <div class="row">
+                @{
+                    var products = Model.GetProducts();
+                    if (products.Count() > 0)
+                    {
+                        foreach (var product in products)
+                        {
+                            <div class="col-lg-4 col-md-6">
+                                @Html.Partial("_Product", product)
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!--shop tab product end-->
+<!--pagination style start-->
+@Html.PagedListPager(products, page => Url.Action("Index", "Products",
+    new {
+        page,
+        h = ViewBag.h,
+        s = ViewBag.s,
+        c = ViewBag.c,
+        str = ViewBag.str,
+        sr = ViewBag.sr
+    }),
+   new PagedListRenderOptions()
+   {
+       DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+       DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+       DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+       DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+       LinkToFirstPageFormat="First",
+       LinkToLastPageFormat="Last",
+       MaximumPageNumbersToDisplay = 10,
+       Display = PagedListDisplayMode.IfNeeded,
+       ContainerDivClasses = new[] { "pagination_style right_sidebar" },
+       UlElementClasses =null
+   })
+<!--pagination style end-->

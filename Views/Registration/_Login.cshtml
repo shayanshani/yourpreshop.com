@@ -1,0 +1,27 @@
+﻿@model PreShop.BL.LoginModel
+<div class="col-lg-6 col-md-6">
+    <div class="account_form register">
+        <h2>Login</h2>
+        @using (Html.BeginForm("Login", "Registration", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <span class="contact_message divcenter">@Html.ValidationMessage("LoginErr", new { style = "color:red" })</span>
+            <p>
+                @Html.TextBoxFor(m => m.Email, new { placeholder = "Email" })
+                @Html.ValidationMessageFor(m => m.Email, null, new { style = "color:red" })
+            </p>
+            <p>
+                @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
+                @Html.ValidationMessageFor(m => m.Password, null, new { style = "color:red" })
+            </p>
+            <div class="login_submit">
+                <button type="submit">login</button>
+                <label for="remember">
+                    <input id="remember" type="checkbox">
+                    Remember me
+                </label>
+                <a href="#">Lost your password?</a>
+            </div>
+        }
+    </div>
+</div>

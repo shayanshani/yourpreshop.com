@@ -1,0 +1,12 @@
+﻿@model PreShop.BL.TblProdcutRating
+
+@using (Html.BeginForm("UpdateRating", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("ProductId")
+    @Html.Hidden("Rating")
+    @Html.TextAreaFor(m => m.Comment, new { Rows = "4", style = "resize:none" })
+    @Html.ValidationMessageFor(m => m.Comment, null, new { style = "color:red" })
+    <button type="submit" style="position:relative!important">Rate</button>
+}
+

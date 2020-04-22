@@ -1,0 +1,14 @@
+﻿@model PreShop.FrontEnd.Helpers.Products.ProductsHelper
+
+@{
+    var products = Model.GetProductsHomePage();
+    if (products.Count() > 0)
+    {
+        foreach (var product in products)
+        {
+            <div class="col-lg-3">
+                @Html.Partial("_Product", product)
+            </div>
+        }
+    }
+}

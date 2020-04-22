@@ -1,0 +1,44 @@
+﻿@using Helper;
+@model PreShop.FrontEnd.Helpers.CartHelper.CartHelper
+@{
+    var items = Model.GetCartItems();
+    if (items.Count() > 0)
+    {
+        <span class="cart_count">@items.Count()</span>
+        <div class="mini_cart" style="height:450px;overflow-y:scroll">
+            <div class="items_nunber">
+                <span>@items.Count() Items in Cart</span>
+            </div>
+            <div class="cart_button checkout">
+                <a href='@Url.Action("Index","CheckOut",new { v=Helper.Security.Encrypt("1") })'>Proceed to Checkout</a>
+            </div>
+            @foreach (var item in items)
+            {
+                <div class="cart_item">
+                    <div class="cart_img">
+                        <a href="#"><img src="~/assets/img/cart/cart1.jpg" alt=""></a>
+                    </div>
+                    <div class="cart_info">
+                        <a href="#">@item.Product</a>
+                        <form>
+                            @{
+                                string unit = !item.Unit.IsNull() ? "/" + item.Unit : "";
+                            }
+                            <span>@Helper.SpartansHelper.FormatCurrencyDisplay(item.Price.ToString())@unit &nbsp; X &nbsp; @item.Qty</span>
+                        </form>
+                        <span style="float:right">= @Helper.SpartansHelper.FormatCurrencyDisplay(item.ItemTotal.ToString())</span>
+                    </div>
+                </div>
+            }
+            <span class="cart_subtotal pull-right" style="font-size:15px!important"><b>Total&nbsp;:&nbsp;@Helper.SpartansHelper.FormatCurrencyDisplay(items[0].SubTotal.ToString())</b></span>
+            <div class="cart_button view_cart" style="padding-top: 40px!important;">
+                <a href="#">View and Edit Cart</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <span class="cart_count">0</span>
+    }
+}
+

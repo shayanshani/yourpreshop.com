@@ -1,0 +1,133 @@
+﻿@model PreShop.FrontEnd.Models.Custom.Stores
+
+@{
+    ViewBag.Title = "Store Registration";
+}
+<style>
+    .contact_message p {
+        font-size: 15px !important;
+        line-height: 24px !important;
+        color: red !important;
+        margin-bottom: 15px !important;
+        text-align: center !important;
+    }
+
+    .bootstrap-filestyle.input-group {
+        z-index: 1 !important;
+    }
+
+    /*.buttonText {
+            color: transparent !important;
+        }*/
+
+    label.btn.btn.btn-success.btn-sm {
+        background: #2971f5 !important;
+        border: 1px solid #2971f5 !important;
+        color: #FFF !important;
+        line-height: 45px !important;
+        height: 47px;
+    }
+
+        label.btn.btn.btn-success.btn-sm:hover {
+            background: #444444 !important;
+        }
+
+    .btn-success .badge {
+        background: #fff !important;
+        color: #444444 !important;
+    }
+</style>
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area commun_bread">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <h3>store registration</h3>
+                    <ul>
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li><i class="fa fa-angle-right"></i></li>
+                        <li>Store registraion</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--contact area start-->
+<div class="contact_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="contact_message form">
+                    <h3>Register your store</h3>
+
+                    @using (Html.BeginForm("Register", "StoreRegistration", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <p class="form-messege">@Html.ValidationMessage("RegistrationError")</p>
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Store name </label>
+                                    @Html.TextBoxFor(m => m.StoreName, new { placeholder = "Store Name" })
+                                    @Html.ValidationMessageFor(m => m.StoreName, null, new { style = "color:red" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <label></label>
+                                <input type="file" name="flvLogo" class="FileUploadLogo" style="border:0px!important" />
+                                @Html.ValidationMessageFor(m => m.Logo, null, new { style = "color:red" })
+                            </div>
+                        </div>
+                        <div class="contact_textarea">
+                            <label>Address</label>
+                            @Html.TextAreaFor(m => m.StoreAddress, new { placeholder = "Address", @class = "form-control2", style = "height:120px!important" })
+                            @Html.ValidationMessageFor(m => m.StoreAddress, null, new { style = "color:red" })
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>City</label>
+                                    @Html.DropDownListFor(m => m.CityID, new SelectList(Model.GetCities(), "CityID", "City"), "Select City", new { @class = "form-control", style = "height:45px" })
+                                    @Html.ValidationMessageFor(m => m.CityID, null, new { style = "color:red" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <label>Email</label>
+                                @Html.TextBoxFor(m => m.Email, new { placeholder = "Email Address" })
+                                @Html.ValidationMessageFor(m => m.Email, null, new { style = "color:red" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Cell no.</label>
+                                    @Html.TextBoxFor(m => m.Cellno, new { placeholder = "Cell number" })
+                                    @Html.ValidationMessageFor(m => m.Cellno, null, new { style = "color:red" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <label>Landline (If any)</label>
+                                @Html.TextBoxFor(m => m.LandLine, new { placeholder = "Landline" })
+                            </div>
+                        </div>
+                        <button type="submit"> Register</button>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="contact_message content">
+                    <h3>contact us</h3>
+                    <ul>
+                        <li><i class="fa fa-fax"></i>  Address : Ashiyana shopping center D-i-khan</li>
+                        <li><i class="fa fa-envelope-o"></i> <a href="#">Contact@thepreshop.com</a></li>
+                        <li><i class="fa fa-phone"></i>0343-1969805</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--contact area end-->

@@ -1,0 +1,38 @@
+﻿@model PreShop.FrontEnd.Helpers.Categories.CategoriesHelper
+@{
+    var categories = Model.GetCategories();
+
+    if (categories != null)
+    {
+        foreach (var category in categories.GetCategories.Take(8))
+        {
+            <div class="col-lg-3">
+                <div class="single_categorie_banner">
+                    <div class="categorie_banner_thumb">
+                        <img src="~/assets/img/banner/banner1.png" alt="">
+                        <div class="categorie_banner_content">
+                            @{
+                                var subcategories = categories.GetSubcategories.Where(x => x.CategoryID == category.CategoryID).Take(4);
+                            }
+                            <h3>@category.Category</h3>
+                            @{
+                                if (subcategories.Count() > 0)
+                                {
+                                    <ul>
+                                        @foreach (var subcategory in subcategories)
+                                        {
+                                            <li>
+                                                <a href='@Url.Action("Index","Products",new {s=Helper.Security.Encrypt(subcategory.SubCategoryID.ToString()) })'>@subcategory.SubCategory</a>
+                                            </li>
+                                        }
+                                            <li><a href="#">See More</a></li>
+                                    </ul>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}

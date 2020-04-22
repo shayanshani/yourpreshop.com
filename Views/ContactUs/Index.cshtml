@@ -1,0 +1,75 @@
+﻿@model PreShop.FrontEnd.Models.Custom.ContactUsModel
+
+@{
+    ViewBag.Title = "Contact Us";
+}
+
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area commun_bread">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <h3>contact us</h3>
+                    <ul>
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li><i class="fa fa-angle-right"></i></li>
+                        <li>contact us</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--contact area start-->
+<div class="contact_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="contact_message content">
+                    <h3>contact us</h3>
+                    <ul>
+                        <li><i class="fa fa-fax"></i>  Address : Ashiyana shopping center D-I-Khan</li>
+                        <li><i class="fa fa-envelope-o"></i> <a href="#">@PreShop.Common.AdminContactEmail</a></li>
+                        <li><i class="fa fa-phone"></i> 0343-1969805</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="contact_message form">
+                    @*<h3>Tell us your project</h3>*@
+                    <span style="color:green">@ViewBag.Message</span><br />
+                    @using (Html.BeginForm("SendMail", "ContactUs", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <p>
+                            <label> Your Name </label>
+                            @Html.TextBoxFor(m => m.Name, new { placeholder = "Name" })
+                            @Html.ValidationMessageFor(m => m.Name, null, new { style = "color:red" })
+                        </p>
+                        <p>
+                            <label>  Your Email </label>
+                            @Html.TextBoxFor(m => m.Email, new { placeholder = "Email" })
+                            @Html.ValidationMessageFor(m => m.Email, null, new { style = "color:red" })
+                        </p>
+                        <p>
+                            <label>  Subject</label>
+                            @Html.TextBoxFor(m => m.Subject, new { placeholder = "Subject" })
+                            @Html.ValidationMessageFor(m => m.Subject, null, new { style = "color:red" })
+                        </p>
+                        <div class="contact_textarea">
+                            <label>  Your Message</label>
+                            @Html.TextBoxFor(m => m.Message, new { placeholder = "Message" })
+                            @Html.ValidationMessageFor(m => m.Message, null, new { style = "color:red" })
+                        </div>
+                        <p class="form-messege"></p>
+                        <button type="submit"> Send</button>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--contact area end-->

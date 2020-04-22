@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Thanks";
+}
+
+<div class="error_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="error_form">
+                    <h2>Your order has been received</h2>
+                    <p>Thankyou for you purchase!</p>
+                    <p>Your order # is: #@ViewBag.OrderNo</p>
+                    <p>
+                        You will recieve an order confirmation email with details and a link to track its progress
+                    </p>
+                    @Html.Partial("_Search")
+                    <a href='@Url.Action("Index","Home")'>Back to home page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

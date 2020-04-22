@@ -1,0 +1,155 @@
+﻿@model PreShop.FrontEnd.Models.Custom.CheckOutModel
+@using Helper;
+@{
+    ViewBag.Title = "Check out";
+}
+
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area commun_bread">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <h3>checkout</h3>
+                    <ul>
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li><i class="fa fa-angle-right"></i></li>
+                        <li>checkout</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--Checkout page section-->
+<div class="Checkout_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="user-actions mb-20">
+                    <h3>
+                        <i class="fa fa-file-o" aria-hidden="true"></i>
+                        Returning customer?
+                        <a class="Returning" href="#" data-toggle="collapse" data-target="#checkout_login" aria-expanded="true">Click here to login</a>
+                    </h3>
+                    <div id="checkout_login" class="collapse" data-parent="#accordion">
+                        <div class="checkout_info">
+                            <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer please proceed to the Billing & Shipping section.</p>
+                            <form action="#">
+                                <div class="form_group mb-20">
+                                    <label>Username or email <span>*</span></label>
+                                    <input type="text">
+                                </div>
+                                <div class="form_group mb-25">
+                                    <label>Password  <span>*</span></label>
+                                    <input type="text">
+                                </div>
+                                <div class="form_group group_3 ">
+                                    <button type="submit">Login</button>
+                                    <label for="remember_box">
+                                        <input id="remember_box" type="checkbox">
+                                        <span> Remember me </span>
+                                    </label>
+                                </div>
+                                <a href="#">Lost your password?</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="checkout_form">
+            @using (Html.BeginForm("CheckOut", "CheckOut", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <h3>Billing Details</h3>
+                        <div class="row">
+                            <div class="col-lg-6 mb-20">
+                                <label>First Name <span>*</span></label>
+                                @Html.TextBoxFor(m => m.FirstName)
+                                @Html.ValidationMessageFor(m => m.FirstName, null, new { style = "color:red" })
+                            </div>
+                            <div class="col-lg-6 mb-20">
+                                <label>Last Name  <span>*</span></label>
+                                @Html.TextBoxFor(m => m.LastName)
+                                @Html.ValidationMessageFor(m => m.LastName, null, new { style = "color:red" })
+                            </div>
+                            <div class="col-lg-6 mb-20">
+                                <label>Phone<span>*</span></label>
+                                @Html.TextBoxFor(m => m.Contact)
+                                @Html.ValidationMessageFor(m => m.Contact, null, new { style = "color:red" })
+                            </div>
+                            <div class="col-lg-6 mb-20">
+                                <label> Email Address   <span>*</span></label>
+                                @Html.TextBoxFor(m => m.Email)
+                                @Html.ValidationMessageFor(m => m.Email, null, new { style = "color:red" })
+                            </div>
+                            <div class="col-12 mb-20">
+                                <label>Complete address  <span>*</span></label>
+                                @Html.TextAreaFor(m => m.Address, new { @class = "form-control", style = "resize:none;margin-bottom:10px", rows = "4" })
+                                @Html.ValidationMessageFor(m => m.Address, null, new { style = "color:red" })
+                            </div>
+                            <div class="col-12" style="visibility:hidden">
+                                <div class="order-notes">
+                                    <label for="order_note">Order Notes</label>
+                                    <textarea id="order_note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <h3>Your order</h3>
+                        <div class="order_table table-responsive mb-30">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        var items = Model.GetCart();
+                                        var SubTotal = items[0].SubTotal;
+                                        var TotalBill = SubTotal + 150; // Change the value
+                                    }
+                                    @foreach (var item in items)
+                                    {
+                                        <tr>
+                                            <td> @item.Product <strong> × @item.Qty</strong></td>
+                                            <td> @Helper.SpartansHelper.FormatCurrencyDisplay(item.ItemTotal.ToString())</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Cart Subtotal</th>
+                                        <td>@Helper.SpartansHelper.FormatCurrencyDisplay(SubTotal.ToString())</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Shipping</th>
+                                        <td><strong>@SpartansHelper.FormatCurrencyDisplay("150")</strong></td>
+                                    </tr>
+                                    <tr class="order_total">
+                                        <th>Order Total</th>
+                                        <td><strong>@SpartansHelper.FormatCurrencyDisplay(TotalBill.toString())</strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="payment_method">
+                            <div class="order_button pull-right">
+                                <button type="submit">Submit your order</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+    <!--Checkout page section end-->

@@ -1,0 +1,32 @@
+﻿@model PreShop.FrontEnd.Models.Custom.ProductModel
+
+<div class="single_product">
+    <div class="product_thumb">
+        <a href='@Url.Action("Index", "ProductDetails", new { P = Helper.Security.Encrypt(Model.ProductID.ToString()) })'>
+            <img id="pImg_@Model.ProductID"  src="@PreShop.Common.StoreHostName@Model.Image" onerror="this.src='/assets/img/product/product18.jpg'" alt="">
+        </a>
+    </div>
+    <div class="product_content">
+        <div class="product_ratting">
+            <div id="ratingStarsFeaturedBottom_@Model.ProductID"></div>
+        </div>
+        <h3><a href='@Url.Action("Index", "ProductDetails", new { P = Helper.Security.Encrypt(Model.ProductID.ToString()) })'>@Model.Product</a></h3>
+        <div class="product_price">
+            <span class="current_price">@Helper.SpartansHelper.FormatCurrencyDisplay(Model.Price.ToString())</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#ratingStarsFeaturedBottom_@Model.ProductID").rateYo({
+            rating: @Model.Rating > 0 ? @Model.Rating : 0,
+            starWidth: "13px",
+            onSet: function (rating, rateYoInstance) {
+                $("#ProductId").val(@Model.ProductID);
+                $("#Rating").val(rating);
+                    OpenPopUp("RatingPopup");
+                }
+        });
+    });
+</script>

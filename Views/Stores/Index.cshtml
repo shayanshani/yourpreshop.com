@@ -1,0 +1,97 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PreShop.FrontEnd.Helpers.StoreHelper.StoreHelper
+
+@{
+    ViewBag.Title = "Shops";
+}
+
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area commun_bread">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <h3>Shops</h3>
+                    <ul>
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li><i class="fa fa-angle-right"></i></li>
+                        <li>Shops</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--portfolio section -->
+<div class="portfolio_section_area">
+    <div class="container">
+        <div class="portfolio_button">
+            <div class="row">
+                <div class="col-12">
+                    <button class="active" data-filter="*">all</button>
+
+                    @foreach (var item in Model.GetStoreTypes())
+                    {
+                        <button data-filter=".@item.StoreType.Replace(" ", "")" style="margin-top: 5px;margin-left: 5px;">@item.StoreType</button>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row portfolio_gallery">
+            @{
+                var stores = Model.GetStoreList();
+                foreach (var store in stores)
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6 gird_item @Model.GetStoreTypes(store.StoreTypeIDs)">
+                        <div class="single_portfolio_inner">
+                            <div class="portfolio_thumb">
+                                <a href='@Url.Action("Index","Products",new {str=Helper.Security.Encrypt(store.StoreID.ToString()) })'>
+                                    <img src='@Helper.SpartansHelper.GetHostName()@store.Logo' style="height:210px" alt="" onerror="this.src='/assets/img/brand/bra2.png'">
+                                </a>
+                                <div class="portfolio_popup" style="display:none">
+                                    <a class="port_popup" href='@Helper.SpartansHelper.GetHostName()@store.Logo'><i class="fa fa-search"></i></a>
+                                </div>
+                                <div class="portfolio_link">
+                                    <a title="View Products of @store.StoreName" href='@Url.Action("Index","Products",new {str=Helper.Security.Encrypt(store.StoreID.ToString()) })'><i class="fa fa-link"></i></a>
+                                </div>
+                            </div>
+                            <div class="portfolio__content">
+                                <a href='@Url.Action("Index","Products",new {str=Helper.Security.Encrypt(store.StoreID.ToString()) })'>
+                                    @store.StoreName
+                                </a>
+                                @*<span>admin</span>*@
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="row" style="margin-bottom: 10px;margin-top: 10px;">
+            <div class="col-sm-12">
+                <!--pagination style start-->
+                @Html.PagedListPager(stores, page => Url.Action("Index", "Stores",
+                    new {
+                        page
+                    }),
+                   new PagedListRenderOptions()
+                   {
+                       DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+                       DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+                       DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+                       DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+                       LinkToFirstPageFormat="First",
+                       LinkToLastPageFormat="Last",
+                       MaximumPageNumbersToDisplay = 10,
+                       Display = PagedListDisplayMode.IfNeeded,
+                       ContainerDivClasses = new[] { "pagination_style right_sidebar" },
+                       UlElementClasses =null
+                   })
+                <!--pagination style end-->
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--portfolio section end-->

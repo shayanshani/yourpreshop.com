@@ -1,0 +1,21 @@
+﻿@model PreShop.FrontEnd.Helpers.StoreHelper.StoreHelper
+
+@{
+    var store = Model.GetStores();
+
+    if (store != null)
+    {
+        foreach (var stores in store)
+        {
+            <div class="col-lg-3">
+                <div class="single_brand">
+                    <a href='@Url.Action("Index","Products",new {str=Helper.Security.Encrypt(stores.StoreID.ToString()) })'>
+                        <img src='@Helper.SpartansHelper.GetHostName()@stores.Logo' alt="" onerror="this.src='/assets/img/brand/bra2.png'" style="height: 85px!important;">
+                        <h3 style="text-align:center!important;color: #2971f5!important;font-size:18px!important">@stores.StoreName</h3>
+                    </a>
+                </div>
+            </div>
+        }
+    }
+}
+

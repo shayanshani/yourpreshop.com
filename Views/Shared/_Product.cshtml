@@ -1,0 +1,62 @@
+﻿@using Helper;
+@model PreShop.FrontEnd.Models.Custom.ProductModel
+
+<div class="single_product">
+    <div class="product_thumb">
+        <a href='@Url.Action("Index", "ProductDetails", new { P = Helper.Security.Encrypt(Model.ProductID.ToString()) })'>
+            <img id="pImg_@Model.ProductID" style="height: 248px!important;width: 248px!important;" src="@PreShop.Common.StoreHostName@Model.Image" onerror="this.src='/assets/img/product/product18.jpg'" alt="">
+        </a>
+        <div class="btn_quickview">
+            <a href="#" data-toggle="modal" onclick="GetProductDetail(@Model.ProductID,'_ProductDetailPopUp')" data-target="#modal_box" title="Quick View"><i class="ion-ios-eye"></i></a>
+        </div>
+    </div>
+    <div class="product_content">
+
+        <div class="product_ratting">
+            <div id="ratingStars_@Model.ProductID"></div>
+        </div>
+        <h3><a href='@Url.Action("Index", "ProductDetails", new { P = Helper.Security.Encrypt(Model.ProductID.ToString()) })'>@Model.Product</a></h3>
+        <div class="product_price">
+            @{
+                string unit = !Model.Unit.IsNull() ? "/" + Model.Unit : "";
+            }
+            <span class="current_price">@Helper.SpartansHelper.FormatCurrencyDisplay(Model.Price.ToString())@unit</span>
+        </div>
+        <div class="product_description">
+            <p style="font-size:16px"><a title="View all products of this store" href='@Url.Action("Index","Products",new {str=Helper.Security.Encrypt(Model.StoreID.ToString()) })'><i class="fas fa-store-alt"></i>&nbsp;@Model.StoreName</a></p>
+        </div>
+        <div class="available">
+            <div class="available_line d-flex flex-row justify-content-start">
+                <div class="available_title">Available: <span>@Model.CurrentQty</span></div>
+                <div style="display:none;" class="sold_title ml-auto">Sold: <span>@Model.SalesQty</span></div>
+            </div>
+            <div class="available_bar"><span style="display:none;width:@Model.CurerntStockPercent%"></span></div>
+        </div>
+        <div class="product_action">
+            <ul>
+                @{
+                    string showCart = !Model.IsBooking ? "hidden" : "visible";
+                }
+                <li class="product_cart" style="visibility:@showCart">
+                    <a href="javascript:void(0);" class="AddToCartButton" onclick="AddToCart(@Model.ProductID,@Model.Price,1);" title="Add to Cart">Add to Cart</a>
+                </li>
+                <li class="add_links"><a href="#" title="Add to Wishlist"><i class="ion-ios-heart-outline"></i></a></li>
+                <li class="add_links"><a href="#" title="Add to Compare"><i class="ion-loop"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#ratingStars_@Model.ProductID").rateYo({
+            rating: @Model.Rating > 0 ? @Model.Rating : 0,
+            starWidth: "15px",
+            onSet: function (rating, rateYoInstance) {
+                $("#ProductId").val(@Model.ProductID);
+                $("#Rating").val(rating);
+                    OpenPopUp("RatingPopup");
+                }
+        });
+    });
+</script>

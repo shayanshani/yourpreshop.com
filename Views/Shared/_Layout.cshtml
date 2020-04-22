@@ -1,0 +1,859 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/assets/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/assets/jquery_1_12_0")
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <style>
+        .pagination_style ul li.active a {
+            width: auto;
+            border: 0;
+            margin: auto;
+        }
+
+        .mini_cart::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            background-color: #F5F5F5;
+        }
+
+        .mini_cart::-webkit-scrollbar {
+            width: 7px;
+            background-color: #F5F5F5;
+        }
+
+        .mini_cart::-webkit-scrollbar-thumb:hover {
+            background-color: #2971f5;
+        }
+
+        .mini_cart::-webkit-scrollbar-thumb {
+            background-color: #444444;
+        }
+
+        .ui-autocomplete {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            float: left;
+            display: none;
+            min-width: 160px;
+            _width: 160px;
+            padding: 4px 0;
+            margin: 2px 0 0 0;
+            list-style: none;
+            background-color: #ffffff;
+            border-color: #ccc;
+            border-color: rgba(0, 0, 0, 0.2);
+            border-style: solid;
+            border-width: 1px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -webkit-background-clip: padding-box;
+            -moz-background-clip: padding;
+            background-clip: padding-box;
+            *border-right-width: 2px;
+            *border-bottom-width: 2px;
+        }
+
+        .ui-menu-item > a.ui-corner-all {
+            display: block;
+            padding: 3px 15px;
+            clear: both;
+            font-weight: normal;
+            line-height: 18px;
+            color: #555555;
+            white-space: nowrap;
+        }
+
+        .ui-state-focus {
+            background: #2971f5 !important;
+            color: #ffffff !important;
+            text-decoration: none !important;
+            border: 0px !important;
+            border-radius: 0px !important;
+            -webkit-border-radius: 0px !important;
+            -moz-border-radius: 0px !important;
+            background-image: none !important;
+        }
+        .pos_rel {
+            position: relative;
+            float: left;
+        }
+
+        .counter {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 15px;
+            height: 20px;
+            display: none;
+            line-height: 12px;
+            text-align: center;
+            margin-top: -10px;
+            min-width: 20px;
+            padding: 5px;
+            position: absolute;
+            right: -36px;
+            top: 50%;
+        }
+
+        .pos_rel:hover .counter {
+            display: block;
+        }
+
+
+        .counter:before {
+            border-color: transparent rgba(0, 0, 0, 0.8) transparent transparent;
+            border-style: solid;
+            border-width: 5px 5px 5px 0;
+            content: "";
+            display: block;
+            height: 0;
+            left: -10px;
+            margin-top: -5px;
+            position: relative;
+            top: 50%;
+            width: 0;
+        }
+    </style>
+    <link href="~/assets/RateYo/jquery.rateyo.min.css" rel="stylesheet" />
+    @Html.AntiForgeryToken()
+    <script>
+
+        function OpenPopUp(PopUpID) {
+            $('#' + PopUpID).css({ "opacity": "1", "visibility": "visible" });
+            $('.popup_close').on('click', function () {
+                $('#' + PopUpID).css({ "opacity": "0", "visibility": "hidden" });
+            })
+        }
+
+    </script>
+</head>
+<body>
+    <!--header area start-->
+    <header class="header_area">
+        <!--header top start-->
+        <div class="header_top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="welcome_text">
+                            <p>Pakistan's Fastest Online Shopping Destination</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="top_right text-right">
+                            <ul>
+                                @if (Session["UserID"] != null)
+                                {
+                                    <li class="top_links">
+                                        <a href='#'>@Session["UserName"] <i class="ion-chevron-down"></i></a>
+                                        <ul class="dropdown_links">
+                                            <li><a href="#">My Account </a></li>
+                                            <li><a href="#">My Wish List </a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href='@Url.Action("Index","Registration")'>Sign In</a>
+                                    </li>
+                                }
+                                <li class="top_links">
+                                    <a href="#">Store Account <i class="ion-chevron-down"></i></a>
+                                    <ul class="dropdown_links">
+                                        <li>@Html.ActionLink("Register", "Index", "StoreRegistration")</li>
+                                        <li><a href="http://preshopstores.com">Sign In</a></li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--header top start-->
+        <!--header middel start-->
+        <div class="header_middel">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4">
+                        <div class="logo">
+                            <a href='@Url.Action("Index","Home")'><img src="~/assets/img/logo/logo.png" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-5">
+                        <div class="search_bar">
+                            @Html.Partial("_Search")
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <div class="cart_area">
+                            <div class="wishlist_link">
+                                <a href="#"><i class="ion-ios-heart-outline"></i></a>
+                            </div>
+                            <div class="cart_link">
+                                <a href="#"><i id="cartIcon" class="ion-ios-cart-outline"></i>My Cart</a>
+                                <div id="cart">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--header middel end-->
+        <!--header bottom satrt-->
+        <div class="header_bottom sticky-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-5">
+                        <div class="categories_menu">
+                            <div class="categories_title">
+                                <h2 class="categori_toggle"> All categories</h2>
+                            </div>
+                            <div class="categories_menu_inner">
+                                <ul id="ulCategories">
+                                    <li>
+                                        <div class="loader"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="main_menu_inner">
+                            <div class="main_menu d-none d-lg-block">
+                                <ul>
+                                    <li class="active">
+                                        @Html.ActionLink("Home", "Index", "Home")
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Shops", "Index", "Stores")
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("About Us", "Index", "AboutUs")
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Contact Us", "Index", "ContactUs")
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mobile-menu d-lg-none">
+                                <nav>
+                                    <ul>
+                                        <li>
+                                            @Html.ActionLink("Home", "Index", "Home")
+                                        </li>
+                                        <li>
+                                            <a href="#">Shops</a>
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("About Us", "Index", "AboutUs")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Contact Us", "Index", "ContactUs")
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="contact_phone">
+                            <div class="contact_icone">
+                                <span class="pe-7s-headphones"></span>
+                            </div>
+                            <div class="contact_number">
+                                <p>Call Us:</p>
+                                <span>+92343-1969805</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--header bottom end-->
+    </header>
+    <!--header area end-->
+
+    @RenderBody()
+
+    <!--brand area start-->
+    <div class="brand_area">
+        <div class="container">
+            <div class="brand_inner">
+                <div class="row">
+                    <div class="brand_active owl-carousel" id="DivStore">
+                        <div class="loader"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--brand area end-->
+    <!--shipping area start-->
+    <div class="shipping_area shipping_contact ">
+        <div class="container">
+            <div class="shipping_contact">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="single_shipping">
+                            <div class="shipping_icone">
+                                <span class="pe-7s-call"></span>
+                            </div>
+                            <div class="shipping_content">
+                                <h3>+923347214291</h3>
+                                <p>Free support line!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="single_shipping">
+                            <div class="shipping_icone">
+                                <span class="pe-7s-mail"></span>
+                            </div>
+                            <div class="shipping_content">
+                                <h3>@PreShop.Common.AdminContactEmail</h3>
+                                <p>Orders Support!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="single_shipping column_3">
+                            <div class="shipping_icone">
+                                <span class="pe-7s-timer"></span>
+                            </div>
+                            <div class="shipping_content">
+                                <h3>Mon - Fri / 8:00 - 18:00</h3>
+                                <p>Working Days/Hours!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--newsletter area start-->
+                <div class="newsletter_area">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="field_newsletter">
+                                <div class="newsletter_text">
+                                    <h3>Sign Up For Newsletter</h3>
+                                    <p>Be the First to Know. Sign up to newsletter today</p>
+                                </div>
+                                <div class="newsletter_form">
+                                    <form action="#">
+                                        <input placeholder="Enter your email address" type="text">
+                                        <button type="submit">Subscibe</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--newsletter area end-->
+            </div>
+        </div>
+    </div>
+    <!--shipping area end-->
+    <!--footer area start-->
+    <div class="footer_area">
+        <div class="container">
+            <div class="footer_top">
+                <div class="row">
+                    <div class="col-lg-4 col-md-8">
+                        <div class="single_footer">
+                            <div class="footer_logo">
+                                <a href="#"><img src="~/assets/img/logo/logo.png" alt=""></a>
+                            </div>
+                            <div class="footer_desc">
+                                <p>We are a team of designers and developers that create high quality Magento, Prestashop, Opencart.</p>
+                            </div>
+                            <div class="footer_contact">
+                                <ul>
+                                    <li><i class="ion-location"></i> Ashiyana Shopping Center,3rd floor Office no 6, Dera ismail khan</li>
+                                    <li><i class="ion-ios-telephone"></i> +923347214291</li>
+                                    <li><i class="ion-ios-email"></i> <a href="#">@PreShop.Common.AdminContactEmail</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4">
+                        <div class="single_footer">
+                            <h3>CUSTOMER SERVICE</h3>
+                            <ul>
+                                <li> @Html.ActionLink("Contact Us", "Index", "ContactUs")</li>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Order History</a></li>
+                                <li><a href="#">Site Map</a></li>
+                                <li><a href="#">My Account</a></li>
+                                <li><a href="#">Unsubscribe</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4">
+                        <div class="single_footer">
+                            <h3>Information</h3>
+                            <ul>
+                                <li>@Html.ActionLink("About Us", "Index", "AboutUs")</li>
+                                <li><a href="#">Delivery Information</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms & Conditions</a></li>
+                                <li><a href="#">Warranty</a></li>
+                                <li><a href="#">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-8">
+                        <div class="single_footer">
+                            <h3>instagram</h3>
+                            <div class="instagram_active owl-carousel">
+                                <div class="instagram_items">
+                                    <div class="instagram_list">
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram1.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram1.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram2.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram2.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram3.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram3.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram4.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram4.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="instagram_list">
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram5.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram5.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram6.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram6.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram7.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram7.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram8.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram8.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="instagram_items">
+                                    <div class="instagram_list">
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram1.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram1.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+
+                                        </div>
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram2.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram2.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram3.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram3.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram4.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram4.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="instagram_list">
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram5.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram5.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram6.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram6.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram7.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram7.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="single_instagram">
+                                            <a href="#"><img src="~/assets/img/instagram/instagram8.jpg" alt=""></a>
+                                            <div class="instagram_icone">
+                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram8.jpg"><i class="ion-social-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright_area">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="copyright_content">
+                            <p>Copyright &copy; @DateTime.Now.Year, <a href="#">PreShop</a>. All Rights Reserved</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6" style="display:none">
+                        <div class="footer-payment text-right">
+                            <a href="#"><img src="~/assets/img/visha/payment.png" alt=""></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer area end-->
+    <div class="newsletter_popup" id="RatingPopup">
+        <div class="popup_container">
+            <div class="popup_close">
+                <span>close</span>
+            </div>
+            <div class="popup_text">
+                <h2>Rate this product</h2>
+                <p>Subscribe to the Pebona mailing list to receive updates on new arrivals, special offers and other discount information.</p>
+                @Html.Partial("_RateProduct", new PreShop.BL.TblProdcutRating())
+            </div>
+        </div>
+    </div>
+    <!-- modal area start-->
+    <div class="modal fade" id="modal_box" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div id="ProductContent">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal area start-->
+
+    @Scripts.Render("~/Scripts/Validation")
+    @Scripts.Render("~/assets/javascripts")
+    @RenderSection("scripts", required: false)
+    <script src="~/assets/RateYo/jquery.rateyo.min.js"></script>
+    <script>
+        $('.FileUploadLogo').filestyle({
+            input: false,
+            buttonName: 'btn btn-success btn-sm',
+            iconName: 'fa fa-upload',
+            buttonText: 'Upload Logo'
+        });
+        function initOwlcarousel(DivId) {
+            $(DivId).owlCarousel({
+                autoplay: true,
+                autoplayTimeout: 8000,
+                rewind: true,
+                items: 4,
+                nav: true,
+                navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    576: {
+                        items: 2,
+                    },
+                    992: {
+                        items: 3,
+                    },
+                    1200: {
+                        items: 4,
+                    },
+
+                }
+            });
+
+        }
+        function initOwlcarouselHomeBottom() {
+            $('.custom_product_active').owlCarousel({
+                autoplay: true,
+                loop: true,
+                nav: true,
+                autoplay: false,
+                autoplayTimeout: 8000,
+                items: 1,
+                dots: false,
+                navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                }
+            });
+        }
+
+        function InitowlCarouselDealsOfTheWeek() {
+            $('.countdown_produtc_active').owlCarousel({
+                autoplay: true,
+                loop: true,
+                nav: true,
+                autoplay: false,
+                autoplayTimeout: 8000,
+                items: 2,
+                dots: false,
+                navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    576: {
+                        items: 1,
+                    },
+                    768: {
+                        items: 1,
+                    },
+                    992: {
+                        items: 2,
+                    },
+
+                }
+            });
+            $('[data-countdown]').each(function () {
+                var $this = $(this), finalDate = $(this).data('countdown');
+                $this.countdown(finalDate, function (event) {
+                    $this.html(event.strftime('<div class="countdown_area"><div class="single_countdown"><div class="countdown_number">%D</div><div class="countdown_title">days</div></div><div class="single_countdown"><div class="countdown_number">%H</div><div class="countdown_title">hrs</div></div><div class="single_countdown"><div class="countdown_number">%M</div><div class="countdown_title">mins</div></div><div class="single_countdown"><div class="countdown_number">%S</div><div class="countdown_title">secs</div></div></div>'));
+
+                });
+            });
+        }
+        $(function () {
+            BindStore();
+            BindCart();
+            $('.AddToCartButton').click(function (e) {
+                e.preventDefault()
+            })
+            $('#check_newsletter').click(function () {
+                $.cookie("disablePopup", "1");
+                $("#SubscribePopup").fadeOut(200);
+               // $.cookie("example", "foo", { expires: 7 }); // Sample 2
+            });
+            $.ajax({
+                type: "GET",
+                dataType: 'html',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                url: '@Url.Action("GetCategories", "Home")',
+                success: function (data) {
+                    var result = data;
+                    $('#ulCategories').html(result);
+                }
+            });
+
+            $("#SearchText").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/Home/AutoComplete/',
+                        data: "{ 'prefix': '" + request.term + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return item;
+                            }))
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $("#SearchText").val(i.item.val);
+                },
+                minLength: 1
+            });
+            //if ($.cookie("disablePopup") == null) {
+            //    OpenPopUp("SubscribePopup");
+            //}
+        });
+
+    function GetProductDetail(ProductId,PartialViewName) {
+         $.ajax({
+             type: "GET",
+             dataType: 'html',
+             url: '@Url.Action("GetProductById", "Home")',
+             data: { Id: ProductId, PartialViewName: PartialViewName },
+             success: function (data) {
+                    $('#ProductContent').html(data);
+                }
+            });
+        }
+
+        function AddToCart(ProductId, Price, Qty) {
+            var cart = $('#cartIcon');
+            var flytoCart;
+            if (Qty == 0) // Get TextboxInputPopup
+            {
+                flytoCart = false;
+                Qty = $('#txtProductQtyPopUp').val();
+            }
+            else if (Qty == -1)
+            {
+                flytoCart = true;
+                Qty = $('#txtProductQty').val();
+            }
+            else
+                flytoCart = true;
+         $.ajax({
+             type: "POST",
+             contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+             url: '@Url.Action("AddToCart", "Home")',
+             data: {
+                 ProductID: ProductId,
+                 Price: Price,
+                 Qty: Qty,
+                 __RequestVerificationToken: $('[name="__RequestVerificationToken"]').val()
+             },
+             success: function (data) {
+                    if (data != null) {
+                        flytoCart = true;
+                        if (data == "qty") {
+                            flytoCart = false;
+                            alert("No more items available for this product");
+                        }
+                        else {
+                            BindCart();
+                        }
+                    }
+                    else
+                        flytoCart = false;
+                }
+            });
+            var imgtodrag = $("#pImg_" + ProductId);
+            if (imgtodrag && flytoCart) {
+                var cartoffset = cart.offset();
+                var imgclone = imgtodrag.clone()
+                    .offset({
+                        top: imgtodrag.offset().top,
+                        left: imgtodrag.offset().left
+                    })
+                    .css({
+                        'opacity': '0.5',
+                        'position': 'absolute',
+                        'height': '150px',
+                        'width': '150px',
+                        'z-index': '100'
+                    })
+                    .appendTo($('body'))
+                    .animate({
+                        'top': cartoffset.top + 10,
+                        'left': cartoffset.left + 10,
+                        'width': 75,
+                        'height': 75
+                    }, 1000, 'easeInOutExpo');
+
+                setTimeout(function () {
+                    //cart.effect("shake", {
+                    //    times: 1
+                    //}, 200);
+                }, 1500);
+                imgclone.animate({
+                    'width': 15,
+                    'height': 15
+                }, function () {
+                    $(this).detach()
+                });
+            }
+            return false;
+        }
+
+        function BindCart() {
+        $.ajax({
+                type: "GET",
+                dataType: 'html',
+            url: '@Url.Action("GetCart", "Home")',
+                success: function (data) {
+                    var $cart = $('#cart');
+                    if (data == '')
+                        $cart.html("<div class='items_nunber'><span>Cart is empty</span></div>");
+                        else {
+                        $cart.html(data);
+                    }
+                }
+            });
+    }
+
+     function BindStore() {
+        $.ajax({
+                type: "GET",
+                dataType: 'html',
+            url: '@Url.Action("GetStore", "Home")',
+                success: function (data) {
+                    var $StoreDiv = $('#DivStore');
+                    if (data == '')
+                        $StoreDiv.html("<div class='col-lg-12'>No Products found</div>");
+                        else {
+                        $StoreDiv.html(data);
+                        initOwlcarousel('#DivStore');
+                    }
+                }
+            });
+        }
+
+        function UpdateRating(ProductId,Rating) {
+         $.ajax({
+                type: "POST",
+                 url: '@Url.Action("UpdateRating", "Home")',
+                 data: { ProductID: ProductId, Rating: Rating },
+                 success: function () {
+                 console.log("Rating Updated");
+                }
+            });
+    }
+    </script>
+</body>
+</html>

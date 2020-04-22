@@ -1,0 +1,52 @@
+﻿@model PreShop.FrontEnd.Helpers.Categories.CategoriesHelper
+@{
+    var categories = Model.GetCategories();
+    if (categories != null)
+    {
+        foreach (var category in categories.GetCategories.Take(8))
+        {
+            <li>
+                @*class="categorie_list"*@
+                @{
+                    var subcategories = categories.GetSubcategories.Where(x => x.CategoryID == category.CategoryID).Take(6);
+                    string displaySubcategories = subcategories.Count() > 0 ? "block" : "none";
+                }
+                <a href="#">@category.Category <i style="display:@displaySubcategories" class="fa fa-angle-right"></i></a>
+                @{
+                    if (subcategories.Count() > 0)
+                    {
+                        <ul class="categories_mega_menu">
+                            @foreach (var subcategory in subcategories)
+                            {
+                                <li>
+                                    <a href='/Products/?s=@Helper.Security.Encrypt(subcategory.SubCategoryID.ToString())'>@subcategory.SubCategory</a>
+                                    @{
+                                        var Headings = categories.GetHeadings.Where(h => h.SubCategoryId == subcategory.SubCategoryID).Take(4);
+                                        if (Headings.Count() > 0)
+                                        {
+                                            <div class="categorie_sub_menu">
+                                                <ul>
+                                                    @foreach (var heading in Headings)
+                                                    {
+                                                        <li><a href='/Products/?h=@Helper.Security.Encrypt(subcategory.CategoryID.ToString())'>@heading.Heading</a></li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        }
+                                    }
+                                </li>
+                            }
+                            @*<li><img src="/assets/img/categorie/categorie.png" alt=""></li>*@
+                        </ul>
+                    }
+                }
+            </li>
+        }
+    }
+}
+<li id="cat_toggle" class="has-sub">
+    <a href="#"> More Categories</a>
+    <ul class="categorie_sub">
+        <li><a href="#"> Computer - Laptop</a></li>
+    </ul>
+</li>
