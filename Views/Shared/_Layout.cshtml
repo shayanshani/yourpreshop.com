@@ -171,7 +171,7 @@
                                     <a href="#">Store Account <i class="ion-chevron-down"></i></a>
                                     <ul class="dropdown_links">
                                         <li>@Html.ActionLink("Register", "Index", "StoreRegistration")</li>
-                                        <li><a href="http://preshopstore.com">Sign In</a></li>
+                                        <li><a href="http://preshopstores.com">Sign In</a></li>
                                     </ul>
                                 </li>
 
@@ -275,8 +275,8 @@
                                 <span class="pe-7s-headphones"></span>
                             </div>
                             <div class="contact_number">
-                                <p>WhatsApp:</p>
-                                <span>+92304-7608860</span>
+                                <p>Call Us:</p>
+                                <span>+92343-1969805</span>
                             </div>
                         </div>
                     </div>
@@ -310,33 +310,33 @@
                     <div class="col-lg-4 col-md-4">
                         <div class="single_shipping">
                             <div class="shipping_icone">
-                                <span class="pe-7s-call"></span>
+                                <span><i class="fab fa-facebook"></i></span>
                             </div>
                             <div class="shipping_content">
-                                <h3>+923347214291</h3>
-                                <p>Free support line!</p>
+                                <h3><a href="#">Preshop</a></h3>
+                                <p>Follow our facebook page!</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
                         <div class="single_shipping">
                             <div class="shipping_icone">
-                                <span class="pe-7s-mail"></span>
+                                <span><i class="fab fa-instagram"></i></span>
                             </div>
                             <div class="shipping_content">
-                                <h3>@PreShop.Common.AdminContactEmail</h3>
-                                <p>Orders Support!</p>
+                                <h3><a href="#">ThePreshop</a></h3>
+                                <p>Instagram Support!</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
                         <div class="single_shipping column_3">
                             <div class="shipping_icone">
-                                <span class="pe-7s-timer"></span>
+                                <span><i class="fab fa-twitter-square"></i></span>
                             </div>
                             <div class="shipping_content">
-                                <h3>Mon - Fri / 8:00 - 18:00</h3>
-                                <p>Working Days/Hours!</p>
+                                <h3><a href="#">@@Preshop</a></h3>
+                                <p>Follow for latest news!</p>
                             </div>
                         </div>
                     </div>
@@ -416,8 +416,8 @@
                     </div>
                     <div class="col-lg-4 col-md-8">
                         <div class="single_footer">
-                            @*<h3>instagram</h3>*@
-                            @*<div class="instagram_active owl-carousel">
+                            <h3>instagram</h3>
+                            <div class="instagram_active owl-carousel">
                                 <div class="instagram_items">
                                     <div class="instagram_list">
                                         <div class="single_instagram">
@@ -527,7 +527,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>*@
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -820,7 +820,7 @@
                     var $cart = $('#cart');
                     if (data == '')
                         $cart.html("<div class='items_nunber'><span>Cart is empty</span></div>");
-                        else {
+                    else {
                         $cart.html(data);
                     }
                 }
