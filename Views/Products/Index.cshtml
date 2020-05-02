@@ -6,13 +6,32 @@
 <script>
     $(function () {
         BindProducts();
+        BindBrands();
     });
 
-    function BindProducts() {
+    function BindBrands() {
         $.ajax({
                 type: "GET",
                 dataType: 'html',
+                url: '@Url.Action("GetBrands", "Products")',
+            success: function (data) {
+                    var $divBrandsContainer = $('#divBrandsContainer');
+                    var $BrandsData = $('#BrandsData');
+                    if (data == '')
+                        $divBrandsContainer.hide();
+                        else {
+                        $BrandsData.html(data);
+                    }
+                }
+            });
+    }
+
+    function BindProducts(CompanyId = null) {
+        CompanyId = CompanyId == null ? 0 : CompanyId;
+        $.ajax({
+                type: "GET",
                 url: '@Url.Action("GetProducts", "Products")',
+                data: { CompId: CompanyId },
                 success: function (data) {
                     var $ProductsDiv = $('#divProducts');
                     if (data == '')
@@ -51,14 +70,12 @@
             <div class="col-lg-3 col-md-12">
                 <div class="sidebar_widget">
                     <!--manufacturer start-->
-                    <div class="widget_list manufacturer">
+                    <div class="widget_list manufacturer" id="divBrandsContainer">
                         <h3>Brand</h3>
-                        <ul>
-                            <li><a href="#">Fisher-Price </a></li>
-                            <li><a href="#">WolVol </a></li>
-                            <li> <a href="#"> K'NEX </a></li>
-                            <li><a href="#">Liberty Imports</a></li>
-                            <li><a href="#">ALEX Toys</a></li>
+                        <ul id="BrandsData">
+                            <li>
+                                <div class="loader"></div>
+                            </li>
                         </ul>
                     </div>
                     <!--manufacturer start-->
@@ -72,7 +89,7 @@
                     </div>
                     <!--widget  price start-->
                     <!--popular tags area-->
-                    <div class="widget_list tag_widget  ">
+                    <div class="widget_list tag_widget" style="display:none">
                         <h3>popular tags</h3>
                         <div class="block_tags">
                             <a href="#">ipod</a>
@@ -88,7 +105,7 @@
                     </div>
                     <!--popular tags end-->
                     <!--widget banner start-->
-                    <div class="widget_list banner">
+                    <div class="widget_list banner"  style="display:none">
                         <div class="banner_thumb">
                             <a href="#"><img src="assets/img/banner/banner9.png" alt=""></a>
                         </div>

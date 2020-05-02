@@ -1,0 +1,6 @@
+﻿@model IEnumerable<PreShop.BL.TblCompany>
+
+@foreach (var company in Model)
+{
+    <li><a href="#" onclick="BindProducts(@company.CompanyID);">@company.Company</a></li>
+}
