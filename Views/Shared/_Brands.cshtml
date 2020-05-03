@@ -2,5 +2,5 @@
 
 @foreach (var company in Model)
 {
-    <li><a href="#" onclick="BindProducts(@company.CompanyID);">@company.Company</a></li>
+    <li><a href="#" onclick="BindProducts('br-@company.CompanyID');">@company.Company</a></li>
 }

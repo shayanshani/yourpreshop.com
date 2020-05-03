@@ -6,20 +6,27 @@
 <script>
     $(function () {
         BindProducts();
-        BindBrands();
+        BindBrandsOrStores();
     });
 
-    function BindBrands() {
+    function BindBrandsOrStores() {
         $.ajax({
                 type: "GET",
                 dataType: 'html',
-                url: '@Url.Action("GetBrands", "Products")',
+                url: '@Url.Action("GetBrandsOrStores", "Products")',
             success: function (data) {
                     var $divBrandsContainer = $('#divBrandsContainer');
                     var $BrandsData = $('#BrandsData');
+                    var $Heading = $('#Heading');
                     if (data == '')
                         $divBrandsContainer.hide();
+                    else {
+                        if (data.includes("stores")) {
+                            $Heading.html("Store");
+                        }
                         else {
+                            $Heading.html("Brand");
+                        }
                         $BrandsData.html(data);
                     }
                 }
@@ -71,7 +78,7 @@
                 <div class="sidebar_widget">
                     <!--manufacturer start-->
                     <div class="widget_list manufacturer" id="divBrandsContainer">
-                        <h3>Brand</h3>
+                        <h3 id="Heading">Brand</h3>
                         <ul id="BrandsData">
                             <li>
                                 <div class="loader"></div>
@@ -105,7 +112,7 @@
                     </div>
                     <!--popular tags end-->
                     <!--widget banner start-->
-                    <div class="widget_list banner"  style="display:none">
+                    <div class="widget_list banner" style="display:none">
                         <div class="banner_thumb">
                             <a href="#"><img src="assets/img/banner/banner9.png" alt=""></a>
                         </div>
