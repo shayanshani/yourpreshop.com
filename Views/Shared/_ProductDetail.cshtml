@@ -7,14 +7,37 @@
         <div class="row">
             <div class="col-lg-5 col-md-6">
                 <div class="product_gallery">
-                    <div class="tab-content produc_thumb_conatainer">
-                        <div class="tab-pane fade show active" id="p_tab1" role="tabpanel">
-                            <div class="modal_img">
-                                <a href="#"><img id="pImg_@Model.ProductID" src="@PreShop.Common.StoreHostName@Model.Image" alt="" onerror="this.src='/assets/img/product/product18.jpg'"></a>
+                    <div class="tab-content product-details-large">
+                        @{
+                            var Images = Model.GetProductImages(Model.ProductID);
+                            string activeImage, ImageId = "", ActiveNav = "";
+                        }
+                        @foreach (var image in Images)
+                        {
+                            activeImage = (image.IsDefault.ToBoolean() ? "show active" : "");
+                            ImageId = (image.IsDefault.ToBoolean() ? "pImg_" + Model.ProductID : "p0");
+                            <div class="tab-pane fade @activeImage" id="tab_@image.Id" role="tabpanel">
+                                <div class="modal_tab_img">
+                                    <a href="#"><img id="@ImageId" src="@PreShop.Common.StoreHostName@image.ImageUrl" alt="" onerror="this.src='/assets/img/product/product18.jpg'"></a>
+                                </div>
                             </div>
-                        </div>
+                        }
+                    </div>
+                    <div class="modal_tab_button">
+                        <ul class="nav product_navactive owl-carousel" role="tablist">
+                            @foreach (var image in Images)
+                            {
+                                ActiveNav = (image.IsDefault.ToBoolean() ? "active" : "");
+                                <li>
+                                    <a class="nav-link @ActiveNav" data-toggle="tab" href="#tab_@image.Id" role="tab" aria-controls="tab_@image.Id" aria-selected="false">
+                                        <img src="@PreShop.Common.StoreHostName@image.ImageUrl" alt="" onerror="this.src='/assets/img/product/product18.jpg'">
+                                    </a>
+                                </li>
+                            }
+                        </ul>
                     </div>
                 </div>
+
             </div>
             <div class="col-lg-7 col-md-6">
                 <div class="product_details">
@@ -140,5 +163,43 @@
                     OpenPopUp("RatingPopup");
                 }
         });
+
+        $('.product_navactive').owlCarousel({
+            autoplay: true,
+            loop: true,
+            nav: false,
+            autoplay: false,
+            autoplayTimeout: 8000,
+            items: 3,
+            dots: true,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                250: {
+                    items: 2,
+                },
+                480: {
+                    items: 3,
+                },
+
+            }
+        });
+
+
+        $('.product_navactive a').on('click', function (e) {
+            e.preventDefault();
+
+            var $href = $(this).attr('href');
+
+            $('.product_navactive a').removeClass('active');
+            $(this).addClass('active');
+
+            $('.product-details-large .tab-pane').removeClass('active show');
+            $('.product-details-large ' + $href).addClass('active show');
+
+        })
+
     });
 </script>
