@@ -120,7 +120,29 @@
                                     @foreach (var item in items)
                                     {
                                         <tr>
-                                            <td> @item.Product <strong> × @item.Qty</strong></td>
+                                            <td>
+                                                @item.Product <strong> × @item.Qty</strong>
+                                                <div class="modal_size">
+                                                    <ul>
+                                                        @{
+                                                            string sizeO = null;
+                                                            if (!string.IsNullOrEmpty(item.Size))
+                                                            {
+                                                                sizeO = item.Size;
+                                                                if (sizeO.IndexOf(' ') > 0)
+                                                                {
+                                                                    sizeO = sizeO.Split(' ')[0];
+                                                                }
+                                                                <li><a class="SizeSelected cartSelectedSizeColor" title="@item.Size" href="javascript:void(0);">@sizeO</a></li>
+                                                            }
+                                                            if (!string.IsNullOrEmpty(item.ColorCode))
+                                                            {
+                                                                <li><a style="background-color:@item.ColorCode" class="ColorSelected cartSelectedSizeColor" href="javascript:void(0);">&nbsp;</a></li>
+                                                            }
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </td>
                                             <td> @Helper.SpartansHelper.FormatCurrencyDisplay(item.ItemTotal.ToString())</td>
                                         </tr>
                                     }

@@ -1,5 +1,19 @@
 ﻿@using Helper;
 @model PreShop.FrontEnd.Helpers.CartHelper.CartHelper
+<style>
+    .cartSelectedSizeColor {
+        text-transform: uppercase !important;
+        display: inline-block !important;
+        border: 1px solid #ddd !important;
+        width: 25px !important;
+        height: 25px !important;
+        text-align: center !important;
+        line-height: 25px !important;
+        border-radius: 50% !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+    }
+</style>
 @{
     var items = Model.GetCartItems();
     if (items.Count() > 0)
@@ -26,7 +40,31 @@
                             }
                             <span>@Helper.SpartansHelper.FormatCurrencyDisplay(item.Price.ToString())@unit &nbsp; X &nbsp; @item.Qty</span>
                         </form>
-                        <span style="float:right">= @Helper.SpartansHelper.FormatCurrencyDisplay(item.ItemTotal.ToString())</span>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="modal_size">
+                                    <ul>
+                                        @{
+                                            string sizeO = null;
+                                            if (!string.IsNullOrEmpty(item.Size))
+                                            {
+                                                sizeO = item.Size;
+                                                if (sizeO.IndexOf(' ') > 0)
+                                                {
+                                                    sizeO = sizeO.Split(' ')[0];
+                                                }
+                                                <li><a class="SizeSelected cartSelectedSizeColor" title="@item.Size" href="javascript:void(0);">@sizeO</a></li>
+                                            }
+                                            if (!string.IsNullOrEmpty(item.ColorCode))
+                                            {
+                                                <li><a style="background-color:@item.ColorCode" class="ColorSelected cartSelectedSizeColor" href="javascript:void(0);">&nbsp;</a></li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <span style="float:right">Sub total = @Helper.SpartansHelper.FormatCurrencyDisplay(item.ItemTotal.ToString())</span>
                     </div>
                 </div>
             }

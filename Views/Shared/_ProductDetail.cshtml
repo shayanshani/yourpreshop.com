@@ -58,7 +58,44 @@
                     <div class="product_details_action">
                         @{
                             string showCart = !Model.IsBooking ? "hidden" : "visible";
+                            string HaveSize = !Model.HaveSize ? "none" : "block";
+                            var Sizes = Model.GetProductSizes(Model.ProductID);
+                            if (HaveSize.Contains("block"))
+                            {
+                                if (Sizes.Count == 0)
+                                {
+                                    HaveSize = "none";
+                                }
+                            }
                         }
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="modal_size mb-15" id="divSizes" style="display:@HaveSize">
+                                    <h2>size</h2>
+                                    <ul>
+                                        @foreach (var size in Sizes)
+                                        {
+                                            var sizeO = size.Size;
+                                            if (sizeO.IndexOf(' ') > 0)
+                                            {
+                                                sizeO = sizeO.Split(' ')[0];
+                                            }
+                                            <li><a id="linkSize_@size.SizeID" title="@size.Size" class="PSizes" href="javascript:void(0);" onclick="AddSizes(@size.SizeID,@sizeO);">@sizeO</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="modal_size mb-15" id="ColorsBySize" style="display:none">
+                                    <h2 id="colorsHeading">Avialable Colors</h2>
+                                    <ul id="colorsBySizeContainer">
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="product_stock" style="visibility:@showCart">
                             <label>Quantity</label>
                             <input min="1" max="100" step="2" value="1" id="txtProductQty" type="number">
@@ -67,7 +104,7 @@
                             <ul>
                                 <li class="product_cart" style="visibility:@showCart"><a href="javascript:void(0);" class="AddToCartButton" onclick="AddToCart(@Model.ProductID,@Model.Price,-1);" title="Add to Cart">Add to Cart</a></li>
                                 <li class="add_links"><a href="#" title="Add to Wishlist"><i class="ion-ios-heart-outline"></i> Add to wishlist</a></li>
-                                <li class="add_links"><a href="#" title="Add to Compare"><i class="ion-loop"></i> Add to compare</a></li>
+                                <li class="add_links" style="display:none"><a href="#" title="Add to Compare"><i class="ion-loop"></i> Add to compare</a></li>
                             </ul>
                         </div>
                         <div class="social_sharing">

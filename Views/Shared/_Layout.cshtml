@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     @Styles.Render("~/assets/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/assets/jquery_1_12_0")
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <style>
         .pagination_style ul li.active a {
             width: auto;
@@ -123,6 +123,12 @@
             top: 50%;
             width: 0;
         }
+
+        .SizeSelected {
+            background: #2971f5 !important;
+            color: #fff !important;
+            border-color: #2971f5 !important;
+        }
     </style>
     <link href="~/assets/RateYo/jquery.rateyo.min.css" rel="stylesheet" />
     @Html.AntiForgeryToken()
@@ -138,6 +144,8 @@
     </script>
 </head>
 <body>
+    @Html.Hidden("hfShoppingSizes")
+    @Html.Hidden("hfShoppingColors")
     <!--header area start-->
     <header class="header_area">
         <!--header top start-->
@@ -673,9 +681,11 @@
                 });
             });
         }
+        var Color = [];
         $(function () {
             BindStore();
             BindCart();
+            GetColors();
             $('.AddToCartButton').click(function (e) {
                 e.preventDefault()
             })
@@ -735,6 +745,101 @@
             });
         }
 
+
+        function GetColors() {
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: "@Url.Action("GetColors", "Colors")",
+                dataType: "json",
+                success: function (res) {
+                    Color = res;
+                },
+                error: function (err) {
+                    console.log(err.responseText);
+                }
+            });
+        }
+
+        function getCorrectTextColor(hex) {
+            threshold = 130;
+            hRed = hexToR(hex);
+            hGreen = hexToG(hex);
+            hBlue = hexToB(hex);
+            function hexToR(h) { return parseInt((cutHex(h)).substring(0, 2), 16) }
+            function hexToG(h) { return parseInt((cutHex(h)).substring(2, 4), 16) }
+            function hexToB(h) { return parseInt((cutHex(h)).substring(4, 6), 16) }
+            function cutHex(h) { return (h.charAt(0) == "#") ? h.substring(1, 7) : h }
+            cBrightness = ((hRed * 299) + (hGreen * 587) + (hBlue * 114)) / 1000;
+            if (cBrightness > threshold) { return "#000000"; } else { return "#ffffff"; }
+        }
+
+        function AddColors(color) {
+            var hfShoppingColors = $("#hfShoppingColors");
+            console.log(color.dataset.colorid);
+            hfShoppingColors.val(null);
+            hfShoppingColors.val(color.dataset.colorid);
+            var linkColor = $("#" + color.id);
+            if (linkColor.hasClass("ColorSelected")) {
+                linkColor.removeClass("ColorSelected");
+                hfShoppingColors.val(null); 
+                linkColor.html("&nbsp");
+            }
+            else {
+                $('.PColors').each(function (idx) {
+                    $(this).removeClass('ColorSelected');
+                    $(this).html("&nbsp");
+                });   
+                linkColor.addClass("ColorSelected");
+                linkColor.html("<i class='fa fa-check' style='color: " + getCorrectTextColor(color.dataset.actualcolor)+"'></i>");
+            }
+        }
+
+        function AddSizes(SizeId, SizeName) {
+            var hfShoppingSizes = $("#hfShoppingSizes");
+            var colorsHeading = $("#colorsHeading");
+            hfShoppingSizes.val(null);
+            $("#colorsBySizeContainer").html(null);
+            hfShoppingSizes.val(SizeId);
+            var linkSize = $("#linkSize_" + SizeId);
+            if (linkSize.hasClass("SizeSelected")) {
+                linkSize.removeClass("SizeSelected");
+                $("." + SizeName).remove();
+                $('#ColorsBySize').hide();
+                hfShoppingSizes.val(null);
+            }
+            else {
+                $('.PSizes').each(function (idx) {
+                    $(this).removeClass('SizeSelected');
+                });
+                linkSize.addClass("SizeSelected");
+                var FilteredColors = Color.filter(function (e) {
+                    return e.SizeId == SizeId;
+                });
+                var html = '';
+                if (FilteredColors.length > 0) {
+                    if (FilteredColors.length == 1) {
+                        colorsHeading.html("Available Color");
+                    } else {
+                        colorsHeading.html("Available Colors");
+                    }
+                    for (var i = 0; i < FilteredColors.length; i++) {
+                        html += "<li id='linkColor_colorBysize" + FilteredColors[i].ColorID + "_" + SizeId + "_" + i + "' class=" + SizeName + ">";
+                        html += "<a class='PColors' title=" + FilteredColors[i].ColorName + " style = 'background-color: " + FilteredColors[i].ColorCode + "' data-ColorID=" + FilteredColors[i].ColorID + " data-actualcolor=" + FilteredColors[i].ColorCode + " id = 'colorBysize" + FilteredColors[i].ColorID + "_" + SizeId + "_" + i + "' href = 'javascript:void(0);' onclick = 'AddColors(this);' >"
+                        html += "&nbsp";
+                        html += "</a>";
+                        html += "</li>";
+                    }
+                }
+                if (html != '') {
+                    $('#ColorsBySize').show();
+                    $('#colorsBySizeContainer').append(html);
+                }
+            }
+            if (html == '' || hfShoppingSizes == '' || hfShoppingSizes == null) {
+                $('#ColorsBySize').hide();
+            }
+        }
         function AddToCart(ProductId, Price, Qty) {
             var cart = $('#cartIcon');
             var flytoCart;
@@ -758,6 +863,8 @@
                  ProductID: ProductId,
                  Price: Price,
                  Qty: Qty,
+                 SizeId: $("#hfShoppingSizes").val(),
+                 ColorId: $("#hfShoppingColors").val(),
                  __RequestVerificationToken: $('[name="__RequestVerificationToken"]').val()
              },
              success: function (data) {
