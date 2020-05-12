@@ -6,7 +6,7 @@
         <a href='@Url.Action("Index", "ProductDetails", new { P = Helper.Security.Encrypt(Model.ProductID.ToString()) })'>
             <img id="pImg_@Model.ProductID" style="height: 248px!important;width: 248px!important;" src="@PreShop.Common.StoreHostName@Model.Image" onerror="this.src='/assets/img/product/product18.jpg'" alt="">
         </a>
-        <div class="btn_quickview">
+        <div class="btn_quickview" style="display:none">
             <a href="#" data-toggle="modal" onclick="GetProductDetail(@Model.ProductID,'_ProductDetailPopUp')" data-target="#modal_box" title="Quick View"><i class="ion-ios-eye"></i></a>
         </div>
     </div>

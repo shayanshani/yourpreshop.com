@@ -1,6 +1,24 @@
 ﻿@using Helper;
 @model PreShop.FrontEnd.Models.Custom.ProductModel
-
+<style>
+    .AddToCartButton {
+        background: none!important;
+        border: 1px solid #444!important;
+        margin-left: 10px!important;
+        font-size: 12px!important;
+        font-weight: 700!important;
+        height: 38px!important;
+        line-height: 18px!important;
+        padding: 10px 15px!important;
+        text-transform: uppercase!important;
+        background: #444!important;
+        color: #fff!important;
+        border-radius: 5px!important;
+        -webkit-transition: .3s!important;
+        transition: .3s!important;
+        cursor: pointer!important;
+    }
+</style>
 <div class="modal_body">
     <div class="container">
         <div class="row">
@@ -33,7 +51,7 @@
                     <div class="modal_add_to_cart mb-15" style="display:@showCart">
                         <form>
                             <input min="1" max="100" step="2" value="1" id="txtProductQtyPopUp" type="number">
-                            <button type="button" onclick="AddToCart(@Model.ProductID,@Model.Price,0);">add to cart</button>
+                            <a href='@Url.Action("Index", "ProductDetails", new { P = Helper.Security.Encrypt(Model.ProductID.ToString()) })' class="AddToCartButton" title="Add to Cart">Add to Cart</a>
                         </form>
                     </div>
                     <div class="modal_description mb-15">

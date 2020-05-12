@@ -59,12 +59,21 @@
                         @{
                             string showCart = !Model.IsBooking ? "hidden" : "visible";
                             string HaveSize = !Model.HaveSize ? "none" : "block";
+                            string IsColor = (Model.IsColor == 1 && HaveSize.Contains("none")) ? "block" : "none";
                             var Sizes = Model.GetProductSizes(Model.ProductID);
+                            var Colors = Model.GetProductColors(Model.ProductID);
                             if (HaveSize.Contains("block"))
                             {
                                 if (Sizes.Count == 0)
                                 {
                                     HaveSize = "none";
+                                }
+                            }
+                            else if (IsColor.Contains("block"))
+                            {
+                                if (Colors.Count == 0)
+                                {
+                                    IsColor = "none";
                                 }
                             }
                         }
@@ -85,11 +94,24 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="modal_size mb-15" id="ColorsBySize" style="display:none">
+
+                            <div class="col-md-6" id="ColorsBySize" style="display:none">
+                                <div class="modal_size mb-15">
+                                    <h2 id="colorsHeading">Avialable Colors</h2>
+                                    <ul id="colorsBySizeContainer"></ul>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" style="display:@IsColor">
+                                <div class="modal_size mb-15">
                                     <h2 id="colorsHeading">Avialable Colors</h2>
                                     <ul id="colorsBySizeContainer">
-                                       
+                                        @foreach (var color in Colors)
+                                        {
+                                            <li id='linkColor_color_@color.ColorID'>
+                                                <a class='PColors' title='@color.ColorName' style='background-color:@color.ColorCode' data-ColorID='@color.ColorID' data-actualcolor='@color.ColorCode' id='color_@color.ColorID' href='javascript:void(0);' onclick='AddColors(this);'>&nbsp</a>
+                                            </li>
+                                        }
                                     </ul>
                                 </div>
                             </div>
