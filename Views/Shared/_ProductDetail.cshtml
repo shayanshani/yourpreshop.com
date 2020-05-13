@@ -1,4 +1,5 @@
 ﻿@using Helper;
+@using System.Text.RegularExpressions;
 @model PreShop.FrontEnd.Models.Custom.ProductModel
 
 <!--single product wrapper start-->
@@ -89,7 +90,12 @@
                                             {
                                                 sizeO = sizeO.Split(' ')[0];
                                             }
-                                            <li><a id="linkSize_@size.SizeID" title="@size.Size" class="PSizes" href="javascript:void(0);" onclick="AddSizes(@size.SizeID,@sizeO);">@sizeO</a></li>
+                                            bool isAlphaBet = Regex.IsMatch(sizeO, "[a-z]", RegexOptions.IgnoreCase);
+                                            if (isAlphaBet)
+                                            {
+                                                sizeO = sizeO.Substring(0, 1);
+                                            }
+                                            <li><a id="linkSize_@size.SizeID" title="@size.Size" class="PSizes" href="javascript:void(0);" onclick="AddSizes(@size.SizeID,'@sizeO');">@sizeO</a></li>
                                         }
                                     </ul>
                                 </div>
