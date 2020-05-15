@@ -15,6 +15,7 @@
         <div class="product_ratting">
             <div id="ratingStars_@Model.ProductID"></div>
         </div>
+        <h3><a href='@Url.Action("Index", "ProductDetails", new { P = Helper.Security.Encrypt(Model.ProductID.ToString()) })'>@Model.Company</a></h3>
         <h3><a href='@Url.Action("Index", "ProductDetails", new { P = Helper.Security.Encrypt(Model.ProductID.ToString()) })'>@Model.Product</a></h3>
         <div class="product_price">
             @{
