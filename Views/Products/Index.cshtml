@@ -34,7 +34,10 @@
     }
 
     function BindProducts(CompanyId = null) {
-        CompanyId = CompanyId == null ? 0 : CompanyId;
+        CompanyId = CompanyId == null ? "0" : CompanyId;
+        if (CompanyId == "price") {
+            CompanyId = $('#txtMinPrice').val() + "," + $('#txtMaxPrice').val();
+        }
         $.ajax({
                 type: "GET",
                 url: '@Url.Action("GetProducts", "Products")',
@@ -87,11 +90,26 @@
                     </div>
                     <!--manufacturer start-->
                     <!--widget  price start-->
-                    <div class="widget_list price" style="display:none">
+                    <div class="widget_list price">
                         <h3>Pricer</h3>
                         <ul>
-                            <li><a href="#">$0.00 - $99.99 </a></li>
-                            <li><a href="#">$100.00 and above </a></li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-4" style="padding-right:6px!important">
+                                        <input type="text" id="txtMinPrice" maxlength="10" class="form-control" placeholder="Min" />
+                                    </div>
+                                    <div class="col-8" style="padding-left:6px!important">
+                                        <div class="row">
+                                            <div class="col-6" style="padding-right:6px!important">
+                                                <input type="text" id="txtMaxPrice" maxlength="10" class="form-control" placeholder="Max" />
+                                            </div>
+                                            <div class="col-6" style="padding-left:6px!important">
+                                                <button type="button" onclick="BindProducts('price');" class="Preshopbutton">></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                     <!--widget  price start-->
@@ -133,7 +151,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="select_option number">
+                    @*<div class="select_option number">
                         <form action="#">
                             <label>Show:</label>
                             <select name="orderby" id="short">
@@ -158,7 +176,7 @@
                                 <option value="1">In stock</option>
                             </select>
                         </form>
-                    </div>
+                    </div>*@
                 </div>
                 <!--shop toolbar end-->
                 <!--shop tab product-->
