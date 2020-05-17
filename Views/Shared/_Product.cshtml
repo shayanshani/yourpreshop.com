@@ -1,7 +1,8 @@
 ﻿@using Helper;
 @model PreShop.FrontEnd.Models.Custom.ProductModel
 
-<div class="single_product">
+<div class="single_product agile-products">
+    <div class="new-tag"><h6>Used</h6></div>
     <div class="product_thumb">
         <a href='@Url.Action("Index", "ProductDetails", new { P = Helper.Security.Encrypt(Model.ProductID.ToString()) })'>
             <img id="pImg_@Model.ProductID" style="height: 248px!important;width: 248px!important;" src="@PreShop.Common.StoreHostName@Model.Image" onerror="this.src='/assets/img/product/product18.jpg'" alt="">
