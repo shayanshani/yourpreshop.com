@@ -2,13 +2,16 @@
 
 @{
     var products = Model.GetProductsHomePage();
-    if (products.Count() > 0)
+    if (products.Count > 0)
     {
-        foreach (var product in products)
+        var r = new Random();
+        for (int i = 0; i <= products.Count; i++)
         {
+            var p = products[r.Next(0, products.Count)];
             <div class="col-lg-3">
-                @Html.Partial("_Product", product)
+                @Html.Partial("_Product",p)
             </div>
+            products.Remove(p);
         }
     }
 }
