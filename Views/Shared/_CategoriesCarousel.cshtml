@@ -6,16 +6,18 @@
     {
         foreach (var category in categories.GetCategories.Take(8))
         {
-            <div class="col-lg-3">
+            <div class="col-lg-3" style="min-height:50px">
                 <div class="single_categorie_banner">
                     <div class="categorie_banner_thumb">
-                        <img src="~/assets/img/banner/banner1.png" alt="" style="visibility:hidden">
+                        @*<img src="~/assets/img/banner/banner1.png" alt="" style="visibility:hidden">*@
                         <div class="categorie_banner_content">
                             @{
                                 var subcategories = categories.GetSubcategories.Where(x => x.CategoryID == category.CategoryID).Take(4);
                             }
-                            <h3>@category.Category</h3>
-                            @{
+                            <a href='@Url.Action("Index","Products",new {c=Helper.Security.Encrypt(category.CategoryID.ToString()) })'>
+                                <h3>@category.Category</h3>
+                            </a>
+                            @*@{
                                 if (subcategories.Count() > 0)
                                 {
                                     <ul>
@@ -28,7 +30,7 @@
                                             <li><a href="#">See More</a></li>
                                     </ul>
                                 }
-                            }
+                            }*@
                         </div>
                     </div>
                 </div>

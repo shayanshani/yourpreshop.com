@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
+    <title>Your Shopping Solution</title>
+    <link rel="icon" href="~/assets/img/logo/favicon.ico">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     @Styles.Render("~/assets/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -210,7 +211,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-6">
                         <div class="welcome_text">
-                            <p>Pakistan's Fastest Online Shopping Destination</p>
+                            @*<p>Pakistan's Fastest Online Shopping Destination</p>*@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
@@ -300,19 +301,19 @@
                         <div class="main_menu_inner">
                             <div class="main_menu d-none d-lg-block">
                                 <ul>
-                                    <li class="active">
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&ViewContext.RouteData.Values["Controller"].ToString()=="Home" ?"active":"")">
                                         @Html.ActionLink("Home", "Index", "Home")
                                     </li>
-                                    <li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&ViewContext.RouteData.Values["Controller"].ToString()=="Stores"?"active":"")">
                                         @Html.ActionLink("Shops", "Index", "Stores")
                                     </li>
-                                    <li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&(ViewContext.RouteData.Values["Controller"].ToString()=="Products"||ViewContext.RouteData.Values["Controller"].ToString()=="ProductDetails") ?"active":"")">
                                         @Html.ActionLink("Products", "Index", "Products")
                                     </li>
                                     @*<li>
                                             @Html.ActionLink("About Us", "Index", "AboutUs")
                                         </li>*@
-                                    <li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&ViewContext.RouteData.Values["Controller"].ToString()=="ContactUs" ?"active":"")">
                                         @Html.ActionLink("Contact Us", "Index", "ContactUs")
                                     </li>
                                 </ul>
@@ -446,7 +447,7 @@
             </div>
             <div class="footer_top">
                 <div class="row">
-                    <div class="col-lg-4 col-md-8">
+                    <div class="col-lg-4 col-md-8" style="width:210px">
                         @*<div class="single_footer">
                             <ul>
                                 <li>
@@ -544,23 +545,17 @@
                         <div class="single_footer">
                             <ul>
                                 <li> @Html.ActionLink("Contact Us", "Index", "ContactUs")</li>
-                                <li><a href="#">Returns</a></li>
-                                <li><a href="#">Order History</a></li>
-                                <li><a href="#">Site Map</a></li>
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">Unsubscribe</a></li>
+                                <li> @Html.ActionLink("About Us", "Index", "AboutUs")</li>
+                                <li><a href="#">FAQs</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-8">
                         <div class="single_footer">
                             <ul>
-                                <li>@Html.ActionLink("About Us", "Index", "AboutUs")</li>
-                                <li><a href="#">Delivery Information</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Terms & Conditions</a></li>
-                                <li><a href="#">Warranty</a></li>
-                                <li><a href="#">FAQ</a></li>
+                                <li>@Html.ActionLink("Create Account", "Index", "AboutUs")</li>
+                                <li>@Html.ActionLink("Register your shop", "Index", "Registration")</li>
+                                <li><a href="#">Feedback suggestions</a></li>
                             </ul>
                         </div>
                     </div>
