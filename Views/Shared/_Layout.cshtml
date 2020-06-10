@@ -229,7 +229,7 @@
                                 else
                                 {
                                     <li>
-                                        <a href='@Url.Action("Index","Registration")'>Sign In</a>
+                                        <a href='@Url.Action("Index","Registration")'>Sign In / Sign Up</a>
                                     </li>
                                 }
                                 <li class="top_links">
@@ -309,9 +309,9 @@
                                     <li>
                                         @Html.ActionLink("Products", "Index", "Products")
                                     </li>
-                                    <li>
-                                        @Html.ActionLink("About Us", "Index", "AboutUs")
-                                    </li>
+                                    @*<li>
+                                            @Html.ActionLink("About Us", "Index", "AboutUs")
+                                        </li>*@
                                     <li>
                                         @Html.ActionLink("Contact Us", "Index", "ContactUs")
                                     </li>
@@ -340,12 +340,14 @@
                     <div class="col-lg-2">
                         <div class="contact_phone">
                             <div class="contact_icone">
-                                <span style="font-size:38px" class="fa fa-whatsapp"></span>
+                                <a href="https://wa.me/923047608860">
+                                    <span style="font-size:38px" class="fa fa-whatsapp"></span>
+                                </a>
                             </div>
-                            <div class="contact_number">
-                                <p>WhatsApp:</p>
-                                <span>+92304-7608860</span>
-                            </div>
+                            @*<div class="contact_number">
+                                    @*<p>WhatsApp:</p>
+                                    <span>+92304-7608860</span>
+                                </div>*@
                         </div>
                     </div>
                 </div>
@@ -357,64 +359,59 @@
 
     @RenderBody()
 
-    <!--brand area start-->
-    <div class="brand_area">
+    <!--best seller area start-->
+    <div class="produtc_area">
         <div class="container">
-            <div class="brand_inner">
-                <div class="row">
-                    <div class="brand_active owl-carousel" id="DivStore">
-                        <div class="loader"></div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="product_tab_button">
+                        <ul class="nav" role="tablist">
+                            <li>
+                                <a class="active" data-toggle="tab" href="#BestSellers" role="tab" aria-controls="BestSellers" aria-selected="true">Best Sellers</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="BestSellers" role="tabpanel">
+                    <div class="row">
+                        <div class="product_active owl-carousel" id="DivBestSellersOwlcarouselTop">
+                            <div class="loader"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!--brand area end-->
-    <!--shipping area start-->
-    <div class="shipping_area shipping_contact ">
+    <!--best seller area end-->
+    <!--categories banner start-->
+    <div class="categorie_banner">
         <div class="container">
-            <div class="shipping_contact">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="single_shipping">
-                            <div class="shipping_icone">
-                                <span><i class="fab fa-facebook"></i></span>
-                            </div>
-                            <div class="shipping_content">
-                                <h3><a href="#">Preshop</a></h3>
-                                <p>Follow our facebook page!</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="single_shipping">
-                            <div class="shipping_icone">
-                                <span><i class="fab fa-instagram"></i></span>
-                            </div>
-                            <div class="shipping_content">
-                                <h3><a href="#">ThePreshop</a></h3>
-                                <p>Instagram Support!</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="single_shipping column_3">
-                            <div class="shipping_icone">
-                                <span><i class="fab fa-twitter-square"></i></span>
-                            </div>
-                            <div class="shipping_content">
-                                <h3><a href="#">@@Preshop</a></h3>
-                                <p>Follow for latest news!</p>
-                            </div>
-                        </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="categorie_banner_title">
+                        <h3>Top Categories</h3>
                     </div>
                 </div>
-
+            </div>
+            <div class="row">
+                <div class="categorie_banner_active owl-carousel" id="DivCategoriesOwlcarousel">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--categories banner end-->
+    <!--shipping area start-->
+    <div class="shipping_area shipping_contact " @*style="background-color:white;"*@>
+        <div class="container">
+            <div class="shipping_contact">
                 <!--newsletter area start-->
                 <div class="newsletter_area">
                     <div class="row">
                         <div class="col-12">
-                            <div class="field_newsletter">
+                            <div class="field_newsletter" style="margin-top:20px;">
                                 <div class="newsletter_text">
                                     <h3>Sign Up For Newsletter</h3>
                                     <p>Be the First to Know. Sign up to newsletter today</p>
@@ -437,28 +434,114 @@
     <!--footer area start-->
     <div class="footer_area">
         <div class="container">
+            <div class="single_footer">
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-md-4">
+                        <div class="footer_logo">
+                            <a href="#"><img src="~/assets/img/logo/logo.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="footer_top">
                 <div class="row">
                     <div class="col-lg-4 col-md-8">
-                        <div class="single_footer">
-                            <div class="footer_logo">
-                                <a href="#"><img src="~/assets/img/logo/logo.png" alt=""></a>
+                        @*<div class="single_footer">
+                            <ul>
+                                <li>
+                                    <div class="single_shipping">
+                                        <div class="shipping_icone">
+                                            <span><i class="fab fa-facebook"></i></span>
+                                        </div>
+                                        <div class="shipping_content">
+                                            <h3><a href="#">Preshop</a></h3>
+                                            <p>Follow our facebook page!</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="single_shipping">
+                                        <div class="shipping_icone">
+                                            <span><i class="fab fa-instagram"></i></span>
+                                        </div>
+                                        <div class="shipping_content">
+                                            <h3><a href="#">Preshop</a></h3>
+                                            <p>Instagram Support!</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="single_shipping">
+                                        <div class="shipping_icone">
+                                            <span><i class="fab fa-twitter-square"></i></span>
+                                        </div>
+                                        <div class="shipping_content">
+                                            <h3><a href="#">Preshop</a></h3>
+                                            <p>Follow for latest news!</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>*@
+
+
+                        <div class="row">
+                                <div class="col-md-12" style="margin-top: 18px;">
+                                    <div class="single_shipping">
+                                        <div class="shipping_icone">
+                                            <span><i class="fab fa-facebook"></i></span>
+                                        </div>
+                                        <div class="shipping_content">
+                                            <h3><a href="#">Preshop</a></h3>
+                                            <p>Follow our facebook page!</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            
+                                <div class="col-md-12" style="margin-top: 18px;">
+                                    <div class="single_shipping">
+                                        <div class="shipping_icone">
+                                            <span style="margin-left: -41px;"><i class="fab fa-instagram"></i></span>
+                                        </div>
+                                        <div class="shipping_content">
+                                            <h3><a href="#">ThePreshop</a></h3>
+                                            <p>Instagram Support!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <div class="col-md-12" style="margin-top: 18px;">
+                                    <div class="single_shipping">
+                                        <div class="shipping_icone">
+                                            <span style="margin-left:-20px;"><i class="fab fa-twitter-square"></i></span>
+                                        </div>
+                                        <div class="shipping_content">
+                                            <h3><a href="#">@@Preshop</a></h3>
+                                            <p>Follow for latest news!</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="footer_desc">
-                                <p>We are a team of designers and developers that create high quality Magento, Prestashop, Opencart.</p>
-                            </div>
-                            <div class="footer_contact">
-                                <ul>
-                                    <li><i class="ion-location"></i> Ashiyana Shopping Center,3rd floor Office no 6, Dera ismail khan</li>
-                                    <li><i class="ion-ios-telephone"></i> +923347214291</li>
-                                    <li><i class="ion-ios-email"></i> <a href="#">@PreShop.Common.AdminContactEmail</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        @*<div class="single_footer">
+                                <div class="footer_logo">
+                                    <a href="#"><img src="~/assets/img/logo/logo.png" alt=""></a>
+                                </div>
+                                <div class="footer_desc">
+                                    <p>We are a team of designers and developers that create high quality Magento, Prestashop, Opencart.</p>
+                                </div>
+                                <div class="footer_contact">
+                                    <ul>
+                                        <li><i class="ion-location"></i> Ashiyana Shopping Center,3rd floor Office no 6, Dera ismail khan</li>
+                                        <li><i class="ion-ios-telephone"></i> +923347214291</li>
+                                        <li><i class="ion-ios-email"></i> <a href="#">@PreShop.Common.AdminContactEmail</a></li>
+                                    </ul>
+                                </div>
+                            </div>*@
                     </div>
-                    <div class="col-lg-2 col-md-4">
+                    <div class="col-lg-4 col-md-8">
                         <div class="single_footer">
-                            <h3>CUSTOMER SERVICE</h3>
                             <ul>
                                 <li> @Html.ActionLink("Contact Us", "Index", "ContactUs")</li>
                                 <li><a href="#">Returns</a></li>
@@ -469,9 +552,8 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-4">
+                    <div class="col-lg-4 col-md-8">
                         <div class="single_footer">
-                            <h3>Information</h3>
                             <ul>
                                 <li>@Html.ActionLink("About Us", "Index", "AboutUs")</li>
                                 <li><a href="#">Delivery Information</a></li>
@@ -482,122 +564,123 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-8">
-                        <div class="single_footer">
-                            <h3>instagram</h3>
-                            <div class="instagram_active owl-carousel">
-                                <div class="instagram_items">
-                                    <div class="instagram_list">
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram1.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram1.jpg"><i class="ion-social-instagram"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram2.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram2.jpg"><i class="ion-social-instagram"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram3.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram3.jpg"><i class="ion-social-instagram"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram4.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram4.jpg"><i class="ion-social-instagram"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="instagram_list">
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram5.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram5.jpg"><i class="ion-social-instagram"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram6.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram6.jpg"><i class="ion-social-instagram"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram7.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram7.jpg"><i class="ion-social-instagram"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram8.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram8.jpg"><i class="ion-social-instagram"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="instagram_items">
-                                    <div class="instagram_list">
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram1.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram1.jpg"><i class="ion-social-instagram"></i></a>
-                                            </div>
 
-                                        </div>
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram2.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram2.jpg"><i class="ion-social-instagram"></i></a>
+                    @*<div class="col-lg-4 col-md-8">
+                            <div class="single_footer">
+                                <h3>instagram</h3>
+                                <div class="instagram_active owl-carousel">
+                                    <div class="instagram_items">
+                                        <div class="instagram_list">
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram1.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram1.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram2.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram2.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram3.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram3.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram4.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram4.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram3.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram3.jpg"><i class="ion-social-instagram"></i></a>
+                                        <div class="instagram_list">
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram5.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram5.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram4.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram4.jpg"><i class="ion-social-instagram"></i></a>
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram6.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram6.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram7.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram7.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram8.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram8.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="instagram_list">
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram5.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram5.jpg"><i class="ion-social-instagram"></i></a>
+                                    <div class="instagram_items">
+                                        <div class="instagram_list">
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram1.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram1.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
+
+                                            </div>
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram2.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram2.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram3.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram3.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram4.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram4.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram6.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram6.jpg"><i class="ion-social-instagram"></i></a>
+                                        <div class="instagram_list">
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram5.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram5.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram7.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram7.jpg"><i class="ion-social-instagram"></i></a>
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram6.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram6.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="single_instagram">
-                                            <a href="#"><img src="~/assets/img/instagram/instagram8.jpg" alt=""></a>
-                                            <div class="instagram_icone">
-                                                <a class="instagram_popup" href="~/assets/img/instagram/instagram8.jpg"><i class="ion-social-instagram"></i></a>
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram7.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram7.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="single_instagram">
+                                                <a href="#"><img src="~/assets/img/instagram/instagram8.jpg" alt=""></a>
+                                                <div class="instagram_icone">
+                                                    <a class="instagram_popup" href="~/assets/img/instagram/instagram8.jpg"><i class="ion-social-instagram"></i></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </div>*@
                 </div>
             </div>
         </div>
@@ -701,7 +784,6 @@
                 }
             });
         }
-
         function InitowlCarouselDealsOfTheWeek() {
             $('.countdown_produtc_active').owlCarousel({
                 autoplay: true,
@@ -741,6 +823,7 @@
         $(function () {
             BindStore();
             BindCart();
+            BindBestSellers();
             GetColors();
             $('.AddToCartButton').click(function (e) {
                 e.preventDefault()
@@ -763,7 +846,7 @@
                     $('#ulCategories').html(result);
                 }
             });
-
+            
             $("#SearchText").autocomplete({
                 source: function (request, response) {
                     $.ajax({
@@ -789,6 +872,40 @@
             //}
         });
 
+        
+    function BindBestSellers() {
+        $.ajax({
+                type: "GET",
+                dataType: 'html',
+            url: '@Url.Action("GetBestSellers", "Home")',
+                success: function (data) {
+                    var $StoreDiv = $('#DivBestSellersOwlcarouselTop');
+                    if (data == '')
+                        $StoreDiv.html("<div class='col-lg-12'>No Products found</div>");
+                        else {
+                        $StoreDiv.html(data);
+                        initOwlcarousel('#DivBestSellersOwlcarouselTop');
+                    }
+                }
+            });
+        }
+
+         function BindCategoriesOwlcarousel() {
+        $.ajax({
+            type: "GET",
+            dataType: 'html',
+            url: '@Url.Action("GetCategoriesCarousel", "Home")',
+            success: function (data) {
+                var $divCategoriesCarousel = $('#DivCategoriesOwlcarousel');
+                if (data == '')
+                    $divCategoriesCarousel.html("<div class='col-lg-12'>No Categories found</div>");
+                else {
+                    $divCategoriesCarousel.html(data);
+                    initOwlcarousel('#DivCategoriesOwlcarousel');
+                }
+            }
+        });
+    }
     function GetProductDetail(ProductId,PartialViewName) {
          $.ajax({
              type: "GET",
@@ -992,23 +1109,6 @@
                 }
             });
     }
-
-     function BindStore() {
-        $.ajax({
-                type: "GET",
-                dataType: 'html',
-            url: '@Url.Action("GetStore", "Home")',
-                success: function (data) {
-                    var $StoreDiv = $('#DivStore');
-                    if (data == '')
-                        $StoreDiv.html("<div class='col-lg-12'>No Products found</div>");
-                        else {
-                        $StoreDiv.html(data);
-                        initOwlcarousel('#DivStore');
-                    }
-                }
-            });
-        }
 
         function UpdateRating(ProductId,Rating) {
          $.ajax({

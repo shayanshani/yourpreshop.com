@@ -65,22 +65,24 @@
         });
     }
 
-    function BindCategoriesOwlcarousel() {
+
+
+    function BindStore() {
         $.ajax({
-            type: "GET",
-            dataType: 'html',
-            url: '@Url.Action("GetCategoriesCarousel", "Home")',
-            success: function (data) {
-                var $divCategoriesCarousel = $('#DivCategoriesOwlcarousel');
-                if (data == '')
-                    $divCategoriesCarousel.html("<div class='col-lg-12'>No Categories found</div>");
-                else {
-                    $divCategoriesCarousel.html(data);
-                    initOwlcarousel('#DivCategoriesOwlcarousel');
+                type: "GET",
+                dataType: 'html',
+            url: '@Url.Action("GetStore", "Home")',
+                success: function (data) {
+                    var $StoreDiv = $('#DivStore');
+                    if (data == '')
+                        $StoreDiv.html("<div class='col-lg-12'>No Products found</div>");
+                        else {
+                        $StoreDiv.html(data);
+                        initOwlcarousel('#DivStore');
+                    }
                 }
-            }
-        });
-    }
+            });
+        }
 
     function BindDealsOftheWeek() {
         $.ajax({
@@ -169,14 +171,14 @@
                 <div class="product_tab_button">
                     <ul class="nav" role="tablist">
                         <li>
-                            <a class="active" data-toggle="tab" href="#Products" role="tab" aria-controls="Products" aria-selected="true"> New Products</a>
+                            <a class="active" data-toggle="tab" href="#Products" role="tab" aria-controls="Products" aria-selected="true">Products</a>
                         </li>
                         @*<li>
-                            <a data-toggle="tab" href="#OnSale" role="tab" onclick="GetSaleProducts();" aria-controls="OnSale" aria-selected="false"> OnSale</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" href="#Feature" role="tab" onclick="BindFeaturedProducts('_FeaturedProducts','#DivFeaturedProductsOwlcarouselTop');" aria-controls="Feature" aria-selected="false">  Feature Products</a>
-                        </li>*@
+                                <a data-toggle="tab" href="#OnSale" role="tab" onclick="GetSaleProducts();" aria-controls="OnSale" aria-selected="false"> OnSale</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#Feature" role="tab" onclick="BindFeaturedProducts('_FeaturedProducts','#DivFeaturedProductsOwlcarouselTop');" aria-controls="Feature" aria-selected="false">  Feature Products</a>
+                            </li>*@
                     </ul>
                 </div>
             </div>
@@ -207,24 +209,46 @@
     </div>
 </div>
 <!--product area end-->
-<!--categories banner start-->
-<div class="categorie_banner">
+<!--brand area start-->
+
+<div class="produtc_area">
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="categorie_banner_title">
-                    <h3>Top Categories</h3>
+                <div class="product_tab_button">
+                    <ul class="nav" role="tablist">
+                        <li>
+                            <a class="active" data-toggle="tab" href="#store" role="tab" aria-controls="store" aria-selected="true">Shops</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="categorie_banner_active owl-carousel" id="DivCategoriesOwlcarousel">
-                <div class="loader"></div>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="store" role="tabpanel">
+                <div class="row">
+                    <div class="product_active owl-carousel" id="DivStore">
+                        <div class="loader"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!--categories banner end-->
+
+
+@*<div class="brand_area">
+    <div class="container">
+        <div class="brand_inner">
+            <div class="row">
+                <div class="brand_active owl-carousel" id="DivStore">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+<!--brand area end-->
 <!--countdown product area start-->
 <div id="DivDealsOfTheWeeks">
     <div class="loader"></div>
@@ -236,270 +260,270 @@
         <div class="row">
             <div class="col-lg-4 col-md-6">
                 @*<div class="custom_product_wrapper">
-                    <div class="custom_product_title">
-                        <h3>recent product</h3>
-                    </div>
-                    <div class="custom_product_active owl-carousel">
-                        <div class="custom_product_list">
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="#"><img src="~/assets/img/product/product10.jpg" alt=""></a>
-                                </div>
-                                <div class="product_content">
-                                    <div class="product_ratting">
-                                        <ul>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                        </ul>
+                        <div class="custom_product_title">
+                            <h3>recent product</h3>
+                        </div>
+                        <div class="custom_product_active owl-carousel">
+                            <div class="custom_product_list">
+                                <div class="single_product">
+                                    <div class="product_thumb">
+                                        <a href="#"><img src="~/assets/img/product/product10.jpg" alt=""></a>
                                     </div>
-                                    <h3><a href="#">Classic 17-Piece Tool	</a></h3>
-                                    <div class="product_price">
-                                        <span class="current_price">$24.00</span>
+                                    <div class="product_content">
+                                        <div class="product_ratting">
+                                            <ul>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <h3><a href="#">Classic 17-Piece Tool	</a></h3>
+                                        <div class="product_price">
+                                            <span class="current_price">$24.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single_product">
+                                    <div class="product_thumb">
+                                        <a href="#"><img src="~/assets/img/product/product24.jpg" alt=""></a>
+                                    </div>
+                                    <div class="product_content">
+                                        <div class="product_ratting">
+                                            <ul>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <h3><a href="#">Cook N Home 12-Piece	</a></h3>
+                                        <div class="product_price">
+                                            <span class="current_price">$25.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single_product">
+                                    <div class="product_thumb">
+                                        <a href="#"><img src="~/assets/img/product/product25.jpg" alt=""></a>
+                                    </div>
+                                    <div class="product_content">
+                                        <div class="product_ratting">
+                                            <ul>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <h3><a href="#">Lid Cover Cookware	</a></h3>
+                                        <div class="product_price">
+                                            <span class="current_price">$28.00</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="#"><img src="~/assets/img/product/product24.jpg" alt=""></a>
-                                </div>
-                                <div class="product_content">
-                                    <div class="product_ratting">
-                                        <ul>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                        </ul>
+                            <div class="custom_product_list">
+                                <div class="single_product">
+                                    <div class="product_thumb">
+                                        <a href="#"><img src="~/assets/img/product/product11.jpg" alt=""></a>
                                     </div>
-                                    <h3><a href="#">Cook N Home 12-Piece	</a></h3>
-                                    <div class="product_price">
-                                        <span class="current_price">$25.00</span>
+                                    <div class="product_content">
+                                        <div class="product_ratting">
+                                            <ul>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <h3><a href="#">Flare Glassware Set	</a></h3>
+                                        <div class="product_price">
+                                            <span class="current_price">$26.00</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="#"><img src="~/assets/img/product/product25.jpg" alt=""></a>
-                                </div>
-                                <div class="product_content">
-                                    <div class="product_ratting">
-                                        <ul>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                        </ul>
+                                <div class="single_product">
+                                    <div class="product_thumb">
+                                        <a href="#"><img src="~/assets/img/product/product12.jpg" alt=""></a>
                                     </div>
-                                    <h3><a href="#">Lid Cover Cookware	</a></h3>
-                                    <div class="product_price">
-                                        <span class="current_price">$28.00</span>
+                                    <div class="product_content">
+                                        <div class="product_ratting">
+                                            <ul>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <h3><a href="#">Cook N Home 12-Piece	</a></h3>
+                                        <div class="product_price">
+                                            <span class="current_price">$25.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single_product">
+                                    <div class="product_thumb">
+                                        <a href="#"><img src="~/assets/img/product/product13.jpg" alt=""></a>
+                                    </div>
+                                    <div class="product_content">
+                                        <div class="product_ratting">
+                                            <ul>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <h3><a href="#">Flash Furniture Black	</a></h3>
+                                        <div class="product_price">
+                                            <span class="current_price">$28.00</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="custom_product_list">
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="#"><img src="~/assets/img/product/product11.jpg" alt=""></a>
-                                </div>
-                                <div class="product_content">
-                                    <div class="product_ratting">
-                                        <ul>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <h3><a href="#">Flare Glassware Set	</a></h3>
-                                    <div class="product_price">
-                                        <span class="current_price">$26.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="#"><img src="~/assets/img/product/product12.jpg" alt=""></a>
-                                </div>
-                                <div class="product_content">
-                                    <div class="product_ratting">
-                                        <ul>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <h3><a href="#">Cook N Home 12-Piece	</a></h3>
-                                    <div class="product_price">
-                                        <span class="current_price">$25.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="#"><img src="~/assets/img/product/product13.jpg" alt=""></a>
-                                </div>
-                                <div class="product_content">
-                                    <div class="product_ratting">
-                                        <ul>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <h3><a href="#">Flash Furniture Black	</a></h3>
-                                    <div class="product_price">
-                                        <span class="current_price">$28.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
+                    </div>*@
             </div>
             <div class="col-lg-4 col-md-6">
                 @*<div class="custom_product_wrapper">
-                    <div class="custom_product_title">
-                        <h3>random products</h3>
-                    </div>
-                    <div class="custom_product_active owl-carousel">
-                        <div class="custom_product_list">
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="#"><img src="~/assets/img/product/product20.jpg" alt=""></a>
-                                </div>
-                                <div class="product_content">
-                                    <div class="product_ratting">
-                                        <ul>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                        </ul>
+                        <div class="custom_product_title">
+                            <h3>random products</h3>
+                        </div>
+                        <div class="custom_product_active owl-carousel">
+                            <div class="custom_product_list">
+                                <div class="single_product">
+                                    <div class="product_thumb">
+                                        <a href="#"><img src="~/assets/img/product/product20.jpg" alt=""></a>
                                     </div>
-                                    <h3><a href="#">Classic 17-Piece Tool	</a></h3>
-                                    <div class="product_price">
-                                        <span class="current_price">$24.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="#"><img src="~/assets/img/product/product21.jpg" alt=""></a>
-                                </div>
-                                <div class="product_content">
-                                    <div class="product_ratting">
-                                        <ul>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <h3><a href="#">Cook N Home 12-Piece	</a></h3>
-                                    <div class="product_price">
-                                        <span class="current_price">$25.00</span>
+                                    <div class="product_content">
+                                        <div class="product_ratting">
+                                            <ul>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <h3><a href="#">Classic 17-Piece Tool	</a></h3>
+                                        <div class="product_price">
+                                            <span class="current_price">$24.00</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="single_product">
-                                <div class="product_thumb">
-                                    <a href="#"><img src="~/assets/img/product/product22.jpg" alt=""></a>
-                                </div>
-                                <div class="product_content">
-                                    <div class="product_ratting">
-                                        <ul>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
-                                        </ul>
+                                <div class="single_product">
+                                    <div class="product_thumb">
+                                        <a href="#"><img src="~/assets/img/product/product21.jpg" alt=""></a>
                                     </div>
-                                    <h3><a href="#">Lid Cover Cookware	</a></h3>
-                                    <div class="product_price">
-                                        <span class="current_price">$28.00</span>
+                                    <div class="product_content">
+                                        <div class="product_ratting">
+                                            <ul>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <h3><a href="#">Cook N Home 12-Piece	</a></h3>
+                                        <div class="product_price">
+                                            <span class="current_price">$25.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single_product">
+                                    <div class="product_thumb">
+                                        <a href="#"><img src="~/assets/img/product/product22.jpg" alt=""></a>
+                                    </div>
+                                    <div class="product_content">
+                                        <div class="product_ratting">
+                                            <ul>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-star"></i></a></li>
+                                                <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <h3><a href="#">Lid Cover Cookware	</a></h3>
+                                        <div class="product_price">
+                                            <span class="current_price">$28.00</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>*@
+                    </div>*@
             </div>
             <div class="col-lg-4 col-md-6">
                 @*<div class="custom_product_wrapper">
-                    <div class="custom_product_title">
-                        <h3>featured products </h3>
-                    </div>
-                    <div class="custom_product_active owl-carousel" id="DivFeaturedProductsBottom">
-                        <div class="loader"></div>
-                    </div>
-                </div>*@
+                        <div class="custom_product_title">
+                            <h3>featured products </h3>
+                        </div>
+                        <div class="custom_product_active owl-carousel" id="DivFeaturedProductsBottom">
+                            <div class="loader"></div>
+                        </div>
+                    </div>*@
             </div>
         </div>
     </div>
 </div>
 <!--custom product end-->
 <!--banner area start-->
-<div class="banner_area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5">
-                <div class="single_banner">
-                    <div class="banner_thumb">
-                        @*<a href="#"><img src="~/assets/img/banner/banner5.png" alt=""></a>*@
+@*<div class="banner_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="single_banner">
+                        <div class="banner_thumb">
+                            <a href="#"><img src="~/assets/img/banner/banner5.png" alt=""></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-7">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="single_banner">
-                            <div class="banner_thumb">
-                                @*<a href="#"><img src="~/assets/img/banner/banner6.png" alt=""></a>*@
-                            </div>
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="single_banner">
+                                <div class="banner_thumb">
+                                    <a href="#"><img src="~/assets/img/banner/banner6.png" alt=""></a>
+                                </div>
 
+                            </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="row">
-                    <div class="col-lg-7">
-                        <div class="single_banner">
-                            <div class="banner_thumb">
-                                @*<a href="#"><img src="~/assets/img/banner/banner7.png" alt=""></a>*@
-                            </div>
-                        </div>
-                        <div class="single_banner">
-                            <div class="banner_thumb">
-                                @*<a href="#"><img src="~/assets/img/banner/banner8.png" alt=""></a>*@
-                            </div>
-                        </div>
                     </div>
-                    <div class="col-lg-5">
-                        <div class="single_banner">
-                            <div class="banner_thumb">
-                                @*<a href="#"><img src="~/assets/img/banner/banner9.png" alt=""></a>*@
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="single_banner">
+                                <div class="banner_thumb">
+                                    <a href="#"><img src="~/assets/img/banner/banner7.png" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="single_banner">
+                                <div class="banner_thumb">
+                                    <a href="#"><img src="~/assets/img/banner/banner8.png" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="single_banner">
+                                <div class="banner_thumb">
+                                    <a href="#"><img src="~/assets/img/banner/banner9.png" alt=""></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </div>*@
 <!--banner area end-->
 <!--news letter popup start-->
 <div class="newsletter_popup" id="SubscribePopup">
