@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Shopping Solution</title>
+    <title>Preshop</title>
     <link rel="icon" href="~/assets/img/logo/favicon.ico">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     @Styles.Render("~/assets/css")
@@ -237,7 +237,7 @@
                                     <a href="#">Store Account <i class="ion-chevron-down"></i></a>
                                     <ul class="dropdown_links">
                                         <li>@Html.ActionLink("Register", "Index", "StoreRegistration")</li>
-                                        <li><a href="http://preshopstore.com">Sign In</a></li>
+                                        <li><a href="http://preshopstore.com" target="_blank">Sign In</a></li>
                                     </ul>
                                 </li>
 
@@ -318,6 +318,9 @@
                                         </li>*@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&ViewContext.RouteData.Values["Controller"].ToString()=="ContactUs" ?"active":"")">
                                         @Html.ActionLink("Contact Us", "Index", "ContactUs")
+                                    </li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&ViewContext.RouteData.Values["Controller"].ToString()=="StoreRegistration" ?"active":"")">
+                                        @Html.ActionLink("Register your Store", "Index", "StoreRegistration")
                                     </li>
                                 </ul>
                             </div>
@@ -556,9 +559,9 @@
                     <div class="col-lg-4 col-md-8">
                         <div class="single_footer">
                             <ul>
-                                <li>@Html.ActionLink("Create Account", "Index", "AboutUs")</li>
-                                <li>@Html.ActionLink("Register your shop", "Index", "Registration")</li>
-                                <li><a href="#">Feedback suggestions</a></li>
+                                <li>@Html.ActionLink("Create Account", "Index", "Registration")</li>
+                                <li>@Html.ActionLink("Register your shop", "Index", "StoreRegistration")</li>
+                                <li><a href="#">@Html.ActionLink("Feedback Suggestions", "Index", "FeedBack")</a></li>
                             </ul>
                         </div>
                     </div>
