@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preshop</title>
+    <title>Your Shopping Solution</title>
     <link rel="icon" href="~/assets/img/logo/favicon.ico">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     @Styles.Render("~/assets/css")
@@ -237,7 +237,7 @@
                                     <a href="#">Store Account <i class="ion-chevron-down"></i></a>
                                     <ul class="dropdown_links">
                                         <li>@Html.ActionLink("Register", "Index", "StoreRegistration")</li>
-                                        <li><a href="http://preshopstore.com" target="_blank">Sign In</a></li>
+                                        <li><a href="http://preshopstore.com">Sign In</a></li>
                                     </ul>
                                 </li>
 
@@ -265,10 +265,7 @@
                     <div class="col-lg-2 col-md-3">
                         <div class="cart_area">
                             <div class="wishlist_link">
-                                <a href="#">
-                                    @*<i class="ion-ios-heart-outline"></i>*@
-                                    <img style="height:40px!important;width:45px!important; background-color:white;" src="~/assets/img/logo/whistlist1.png" />
-                                </a>
+                                <a href="#"><i class="ion-ios-heart-outline"></i></a>
                             </div>
                             <div class="cart_link">
                                 <a href="#"><i id="cartIcon" class="ion-ios-cart-outline"></i>My Cart</a>
@@ -319,9 +316,6 @@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&ViewContext.RouteData.Values["Controller"].ToString()=="ContactUs" ?"active":"")">
                                         @Html.ActionLink("Contact Us", "Index", "ContactUs")
                                     </li>
-                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&ViewContext.RouteData.Values["Controller"].ToString()=="StoreRegistration" ?"active":"")">
-                                        @Html.ActionLink("Register your Store", "Index", "StoreRegistration")
-                                    </li>
                                 </ul>
                             </div>
                             <div class="mobile-menu d-lg-none">
@@ -366,32 +360,9 @@
 
     @RenderBody()
 
-    <!--best seller area start-->
-    <div class="produtc_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="product_tab_button">
-                        <ul class="nav" role="tablist">
-                            <li>
-                                <a class="active" data-toggle="tab" href="#BestSellers" role="tab" aria-controls="BestSellers" aria-selected="true">Best Sellers</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="BestSellers" role="tabpanel">
-                    <div class="row">
-                        <div class="product_active owl-carousel" id="DivBestSellersOwlcarouselTop">
-                            <div class="loader"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--best seller area end-->
+    @RenderSection("BestSellerArea", required:false)
+
+    
     <!--categories banner start-->
     <div class="categorie_banner">
         <div class="container">
@@ -455,82 +426,82 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-8" style="width:210px">
                         @*<div class="single_footer">
-                                <ul>
-                                    <li>
-                                        <div class="single_shipping">
-                                            <div class="shipping_icone">
-                                                <span><i class="fab fa-facebook"></i></span>
-                                            </div>
-                                            <div class="shipping_content">
-                                                <h3><a href="#">Preshop</a></h3>
-                                                <p>Follow our facebook page!</p>
-                                            </div>
+                            <ul>
+                                <li>
+                                    <div class="single_shipping">
+                                        <div class="shipping_icone">
+                                            <span><i class="fab fa-facebook"></i></span>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="single_shipping">
-                                            <div class="shipping_icone">
-                                                <span><i class="fab fa-instagram"></i></span>
-                                            </div>
-                                            <div class="shipping_content">
-                                                <h3><a href="#">Preshop</a></h3>
-                                                <p>Instagram Support!</p>
-                                            </div>
+                                        <div class="shipping_content">
+                                            <h3><a href="#">Preshop</a></h3>
+                                            <p>Follow our facebook page!</p>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="single_shipping">
-                                            <div class="shipping_icone">
-                                                <span><i class="fab fa-twitter-square"></i></span>
-                                            </div>
-                                            <div class="shipping_content">
-                                                <h3><a href="#">Preshop</a></h3>
-                                                <p>Follow for latest news!</p>
-                                            </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="single_shipping">
+                                        <div class="shipping_icone">
+                                            <span><i class="fab fa-instagram"></i></span>
                                         </div>
-                                    </li>
-                                </ul>
-                            </div>*@
+                                        <div class="shipping_content">
+                                            <h3><a href="#">Preshop</a></h3>
+                                            <p>Instagram Support!</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="single_shipping">
+                                        <div class="shipping_icone">
+                                            <span><i class="fab fa-twitter-square"></i></span>
+                                        </div>
+                                        <div class="shipping_content">
+                                            <h3><a href="#">Preshop</a></h3>
+                                            <p>Follow for latest news!</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>*@
 
 
                         <div class="row">
-                            <div class="col-md-12" style="margin-top: 18px;">
-                                <div class="single_shipping">
-                                    <div class="shipping_icone">
-                                        <span><i class="fab fa-facebook"></i></span>
+                                <div class="col-md-12" style="margin-top: 18px;">
+                                    <div class="single_shipping">
+                                        <div class="shipping_icone">
+                                            <span><i class="fab fa-facebook"></i></span>
+                                        </div>
+                                        <div class="shipping_content">
+                                            <h3><a href="#">Preshop</a></h3>
+                                            <p>Follow our facebook page!</p>
+                                        </div>
                                     </div>
-                                    <div class="shipping_content">
-                                        <h3><a href="#">Preshop</a></h3>
-                                        <p>Follow our facebook page!</p>
+                                </div>
+
+                            
+                                <div class="col-md-12" style="margin-top: 18px;">
+                                    <div class="single_shipping">
+                                        <div class="shipping_icone">
+                                            <span style="margin-left: -41px;"><i class="fab fa-instagram"></i></span>
+                                        </div>
+                                        <div class="shipping_content">
+                                            <h3><a href="#">ThePreshop</a></h3>
+                                            <p>Instagram Support!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <div class="col-md-12" style="margin-top: 18px;">
+                                    <div class="single_shipping">
+                                        <div class="shipping_icone">
+                                            <span style="margin-left:-20px;"><i class="fab fa-twitter-square"></i></span>
+                                        </div>
+                                        <div class="shipping_content">
+                                            <h3><a href="#">@@Preshop</a></h3>
+                                            <p>Follow for latest news!</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-
-                            <div class="col-md-12" style="margin-top: 18px;">
-                                <div class="single_shipping">
-                                    <div class="shipping_icone">
-                                        <span style="margin-left: -41px;"><i class="fab fa-instagram"></i></span>
-                                    </div>
-                                    <div class="shipping_content">
-                                        <h3><a href="#">ThePreshop</a></h3>
-                                        <p>Instagram Support!</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12" style="margin-top: 18px;">
-                                <div class="single_shipping">
-                                    <div class="shipping_icone">
-                                        <span style="margin-left:-20px;"><i class="fab fa-twitter-square"></i></span>
-                                    </div>
-                                    <div class="shipping_content">
-                                        <h3><a href="#">@@Preshop</a></h3>
-                                        <p>Follow for latest news!</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         @*<div class="single_footer">
                                 <div class="footer_logo">
                                     <a href="#"><img src="~/assets/img/logo/logo.png" alt=""></a>
@@ -559,9 +530,9 @@
                     <div class="col-lg-4 col-md-8">
                         <div class="single_footer">
                             <ul>
-                                <li>@Html.ActionLink("Create Account", "Index", "Registration")</li>
-                                <li>@Html.ActionLink("Register your shop", "Index", "StoreRegistration")</li>
-                                <li><a href="#">@Html.ActionLink("Feedback Suggestions", "Index", "FeedBack")</a></li>
+                                <li>@Html.ActionLink("Create Account", "Index", "AboutUs")</li>
+                                <li>@Html.ActionLink("Register your shop", "Index", "Registration")</li>
+                                <li><a href="#">Feedback suggestions</a></li>
                             </ul>
                         </div>
                     </div>
@@ -825,7 +796,6 @@
             BindStore();
             BindCart();
             BindBestSellers();
-            BindCategoriesOwlcarousel();
             GetColors();
             $('.AddToCartButton').click(function (e) {
                 e.preventDefault()
@@ -848,7 +818,7 @@
                     $('#ulCategories').html(result);
                 }
             });
-
+            
             $("#SearchText").autocomplete({
                 source: function (request, response) {
                     $.ajax({
@@ -874,7 +844,7 @@
             //}
         });
 
-
+        
     function BindBestSellers() {
         $.ajax({
                 type: "GET",
@@ -1095,22 +1065,6 @@
             return false;
         }
 
-        function BindStore() {
-        $.ajax({
-                type: "GET",
-                dataType: 'html',
-            url: '@Url.Action("GetStore", "Home")',
-                success: function (data) {
-                    var $StoreDiv = $('#DivStore');
-                    if (data == '')
-                        $StoreDiv.html("<div class='col-lg-12'>No Products found</div>");
-                        else {
-                        $StoreDiv.html(data);
-                        initOwlcarousel('#DivStore');
-                    }
-                }
-            });
-        }
 
         function BindCart() {
         $.ajax({
