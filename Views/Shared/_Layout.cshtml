@@ -304,10 +304,10 @@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&ViewContext.RouteData.Values["Controller"].ToString()=="Home" ?"active":"")">
                                         @Html.ActionLink("Home", "Index", "Home")
                                     </li>
-                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&ViewContext.RouteData.Values["Controller"].ToString()=="Stores"?"active":"")">
+                                    <li id="btnShop" class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&ViewContext.RouteData.Values["Controller"].ToString()=="Stores"?"active":"")">
                                         @Html.ActionLink("Shops", "Index", "Stores")
                                     </li>
-                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&(ViewContext.RouteData.Values["Controller"].ToString()=="Products"||ViewContext.RouteData.Values["Controller"].ToString()=="ProductDetails") ?"active":"")">
+                                    <li id="btnProduct" class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&(ViewContext.RouteData.Values["Controller"].ToString()=="Products"||ViewContext.RouteData.Values["Controller"].ToString()=="ProductDetails") ?"active":"")">
                                         @Html.ActionLink("Products", "Index", "Products")
                                     </li>
                                     @*<li>
@@ -1093,5 +1093,6 @@
             });
     }
     </script>
+
 </body>
 </html>

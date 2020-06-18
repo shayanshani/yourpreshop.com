@@ -1,12 +1,14 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Products";
 
 }
+
 <script>
     $(function () {
         BindProducts();
         BindBrandsOrStores();
+        $('#btnProduct').removeClass("active");
+        $('#btnShop').addClass("active"); 
     });
 
     function BindBrandsOrStores() {
@@ -48,6 +50,9 @@
                         $ProductsDiv.html("<div class='col-lg-12'>No Products found</div>");
                         else {
                         $ProductsDiv.html(data);
+                        var name = $('#StoreName').html();
+                        //console.log(name);
+                        $('#ShopName').html(name);
                     }
                 }
             });
@@ -60,7 +65,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumb_content">
-                        <h3>Product line</h3>
+                        <h3 id="ShopName"></h3>
                         <ul>
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li><i class="fa fa-angle-right"></i></li>
