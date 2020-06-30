@@ -308,7 +308,7 @@
                                         @Html.ActionLink("Shops", "Index", "Stores")
                                     </li>
                                     <li id="btnProduct" class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&(ViewContext.RouteData.Values["Controller"].ToString()=="Products"||ViewContext.RouteData.Values["Controller"].ToString()=="ProductDetails") ?"active":"")">
-                                        @Html.ActionLink("Products", "Index", "Products")
+                                        @Html.ActionLink("Products", "Index", "Products",null, new { id="btProduct" })
                                     </li>
                                     @*<li>
                                             @Html.ActionLink("About Us", "Index", "AboutUs")
@@ -703,6 +703,18 @@
     @Scripts.Render("~/Scripts/Validation")
     @Scripts.Render("~/assets/javascripts")
     @RenderSection("scripts", required: false)
+    
+    <script>
+        $(function () {
+            $('#btProduct').click(function () {
+                console.log('osama');
+                //$('#btnProduct').addClass("active");
+                //$('#btnShop').removeClass("active");
+                
+            });
+        });
+    </script>
+
     <script src="~/assets/RateYo/jquery.rateyo.min.js"></script>
     <script>
         $('.FileUploadLogo').filestyle({
@@ -793,7 +805,7 @@
         }
         var Color = [];
         $(function () {
-            BindStore();
+            //BindStore();
             BindCart();
             BindBestSellers();
             GetColors();
