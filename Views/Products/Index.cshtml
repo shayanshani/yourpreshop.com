@@ -1,57 +1,9 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Products";
-    if (ViewContext.RouteData.Values["Action"].ToString() == "Index" && (ViewContext.RouteData.Values["Controller"].ToString() == "Products") && (Request != null && Request.QueryString.Keys.Count > 0))
-    {
-        ViewBag.res = true;
-    }
-    else
-    {
-        ViewBag.res = false;
-    }
-}
-
-@section scripts {
-
-    <script type="text/javascript">
-
-        var prod = document.getElementById("btnProduct");
-        var sho = document.getElementById("btnShop");
-        
-        if (@Convert.ToString(ViewBag.res).ToLower())
-        {
-            prod.classList.remove("active");
-            sho.classList.add("active");
-        }
-        else
-        {
-            sho.classList.remove("active");
-            prod.classList.add("active");
-        }
-
-        @*$(function() { 
-            ProductHighlight();
-        });
-
-        function ProductHighlight()
-        {
-            if (@ViewBag.res == "True") {
-                console.log('osamakhan');
-                $('#btnProduct').removeClass("active");
-                $('#btnShop').addClass("active");
-            }
-            else {
-                $('#btnShop').removeClass("active");
-                $('#btnProduct').addClass("active");
-            }
-       
-        }*@
-        
-    </script>
 
 }
-
 <script>
-
     $(function () {
         BindProducts();
         BindBrandsOrStores();
@@ -59,26 +11,26 @@
 
     function BindBrandsOrStores() {
         $.ajax({
-            type: "GET",
-            dataType: 'html',
-            url: '@Url.Action("GetBrandsOrStores", "Products")',
+                type: "GET",
+                dataType: 'html',
+                url: '@Url.Action("GetBrandsOrStores", "Products")',
             success: function (data) {
-                var $divBrandsContainer = $('#divBrandsContainer');
-                var $BrandsData = $('#BrandsData');
-                var $Heading = $('#Heading');
-                if (data == '')
-                    $divBrandsContainer.hide();
-                else {
-                    if (data.includes("stores")) {
-                        $Heading.html("Store");
-                    }
+                    var $divBrandsContainer = $('#divBrandsContainer');
+                    var $BrandsData = $('#BrandsData');
+                    var $Heading = $('#Heading');
+                    if (data == '')
+                        $divBrandsContainer.hide();
                     else {
-                        $Heading.html("Brand");
+                        if (data.includes("stores")) {
+                            $Heading.html("Store");
+                        }
+                        else {
+                            $Heading.html("Brand");
+                        }
+                        $BrandsData.html(data);
                     }
-                    $BrandsData.html(data);
                 }
-            }
-        });
+            });
     }
 
     function BindProducts(CompanyId = null) {
@@ -87,27 +39,18 @@
             CompanyId = $('#txtMinPrice').val() + "," + $('#txtMaxPrice').val();
         }
         $.ajax({
-            type: "GET",
-            url: '@Url.Action("GetProducts", "Products")',
-            data: { CompId: CompanyId },
-            success: function (data) {
-                var $ProductsDiv = $('#divProducts');
-                if (data == '')
-                    $ProductsDiv.html("<div class='col-lg-12'>No Products found</div>");
-                else {
-                    $ProductsDiv.html(data);
-                    var name = $('#StoreName').html();
-                    //console.log(name);
-                    if (@Convert.ToString(ViewBag.res).ToLower()) {
-                        $('#ShopName').html(name);
+                type: "GET",
+                url: '@Url.Action("GetProducts", "Products")',
+                data: { CompId: CompanyId },
+                success: function (data) {
+                    var $ProductsDiv = $('#divProducts');
+                    if (data == '')
+                        $ProductsDiv.html("<div class='col-lg-12'>No Products found</div>");
+                        else {
+                        $ProductsDiv.html(data);
                     }
-                    else{
-                        $('#ShopName').html("All Products");
-                    }
-                    
                 }
-            }
-        });
+            });
     }
 </script>
 <!--breadcrumbs area start-->
@@ -117,7 +60,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumb_content">
-                        <h3 id="ShopName"></h3>
+                        <h3>Product line</h3>
                         <ul>
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li><i class="fa fa-angle-right"></i></li>
@@ -209,31 +152,31 @@
                         </ul>
                     </div>
                     @*<div class="select_option number">
-                            <form action="#">
-                                <label>Show:</label>
-                                <select name="orderby" id="short">
-                                    <option selected value="1">9</option>
-                                    <option value="2">19</option>
-                                    <option value="3">30</option>
-                                </select>
-                            </form>
-                        </div>
-                        <div class="select_option">
-                            <form action="#">
-                                <label>Sort By</label>
-                                <select name="orderby" id="short1">
-                                    <option selected value="1">Position</option>
-                                    <option value="1">Price: Lowest</option>
-                                    <option value="1">Price: Highest</option>
-                                    <option value="1">Product Name:Z</option>
-                                    <option value="1">Sort by price:low</option>
-                                    <option value="1">Product Name: Z</option>
-                                    <option value="1">In stock</option>
-                                    <option value="1">Product Name: A</option>
-                                    <option value="1">In stock</option>
-                                </select>
-                            </form>
-                        </div>*@
+                        <form action="#">
+                            <label>Show:</label>
+                            <select name="orderby" id="short">
+                                <option selected value="1">9</option>
+                                <option value="2">19</option>
+                                <option value="3">30</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div class="select_option">
+                        <form action="#">
+                            <label>Sort By</label>
+                            <select name="orderby" id="short1">
+                                <option selected value="1">Position</option>
+                                <option value="1">Price: Lowest</option>
+                                <option value="1">Price: Highest</option>
+                                <option value="1">Product Name:Z</option>
+                                <option value="1">Sort by price:low</option>
+                                <option value="1">Product Name: Z</option>
+                                <option value="1">In stock</option>
+                                <option value="1">Product Name: A</option>
+                                <option value="1">In stock</option>
+                            </select>
+                        </form>
+                    </div>*@
                 </div>
                 <!--shop toolbar end-->
                 <!--shop tab product-->
