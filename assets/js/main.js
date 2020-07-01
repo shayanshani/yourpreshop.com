@@ -434,13 +434,19 @@
         $('.categories_menu_inner').slideToggle('medium');
     });
 
-
     /*------addClass/removeClass categories-------*/
-    $(document).on('click', '.categories_menu_inner > ul > li > a, #cat_toggle.has-sub > a', function (event) {
+    $(document).on('mouseenter', '.categories_menu_inner > ul > li > a, #cat_toggle.has-sub > a', function (event) {
         event.preventDefault();
         $(this).removeAttr('href');
         $(this).toggleClass('open').next('.categories_mega_menu,.categorie_sub').toggleClass('open');
         $(this).parents().siblings().find('.categories_mega_menu,#cat_toggle.has-sub > a').removeClass('open');
+    });
+
+    $('.categories_menu_inner').on('mouseleave', function (e) {
+        var target = e.target;
+        if (!$(target).is('.categories_menu_inner > ul > li > a') ) {
+            $('.categories_mega_menu').removeClass('open');
+        }
     });
 
     $('body').on('click', function (e) {
