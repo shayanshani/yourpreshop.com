@@ -42,7 +42,7 @@
                 <li class="product_cart" style="visibility:@showCart;">
                     <a href='@Url.Action("Index", "ProductDetails", new { P = Helper.Security.Encrypt(Model.ProductID.ToString()) })' class="AddToCartButton" @*onclick="AddToCart(@Model.ProductID,@Model.Price,1);"*@ title="Add to Cart">Add to Cart</a>
                 </li>
-                <li class="add_links"><a href="#" title="Add to Wishlist"><i class="ion-ios-heart-outline"></i></a></li>
+                <li class="add_links"><a href="#" title="Add to Wishlist"><i class="fa fa-shopping-cart"></i></a></li>
                 <li class="add_links" style="display:none"><a href="#" title="Add to Compare"><i class="ion-loop"></i></a></li>
             </ul>
         </div>
