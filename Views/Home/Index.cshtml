@@ -10,23 +10,6 @@
             BindDealsOftheWeek();
     });
 
-      function BindStore() {
-        $.ajax({
-                type: "GET",
-                dataType: 'html',
-            url: '@Url.Action("GetStore", "Home")',
-                success: function (data) {
-                    var $StoreDiv = $('#DivStore');
-                    if (data == '')
-                        $StoreDiv.html("<div class='col-lg-12'>No Products found</div>");
-                        else {
-                        $StoreDiv.html(data);
-                        initOwlcarousel('#DivStore');
-                    }
-                }
-            });
-        }
-
     function BindProducts() {
         $.ajax({
                 type: "GET",
@@ -83,9 +66,22 @@
         });
     }
 
-
-
-    
+    function BindStore() {
+        $.ajax({
+                type: "GET",
+                dataType: 'html',
+            url: '@Url.Action("GetStore", "Home")',
+                success: function (data) {
+                    var $StoreDiv = $('#DivStore');
+                    if (data == '')
+                        $StoreDiv.html("<div class='col-lg-12'>No Shop found</div>");
+                        else {
+                        $StoreDiv.html(data);
+                        initOwlcarousel('#DivStore');
+                    }
+                }
+            });
+        }
 
     function BindDealsOftheWeek() {
         $.ajax({
@@ -214,7 +210,7 @@
 <!--product area end-->
 <!--brand area start-->
 
-<div class="produtc_area">
+<div class="product_area">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -552,3 +548,33 @@
     </div>
 </div>
 <!--news letter popup start-->
+
+@section BestSellerArea{
+    <!--best seller area start-->
+<div class="produtc_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="product_tab_button">
+                    <ul class="nav" role="tablist">
+                        <li>
+                            <a class="active" data-toggle="tab" href="#BestSellers" role="tab" aria-controls="BestSellers" aria-selected="true">Best Sellers</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="BestSellers" role="tabpanel">
+                <div class="row">
+                    <div class="product_active owl-carousel" id="DivBestSellersOwlcarouselTop">
+                        <div class="loader"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--best seller area end-->
+
+}
