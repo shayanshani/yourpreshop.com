@@ -6,11 +6,11 @@
     <title>Your Shopping Solution</title>
     <link rel="icon" href="~/assets/img/logo/favicon.ico">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <script type='text/javascript' async="async" src='https://platform-api.sharethis.com/js/sharethis.js#property=5f0b407d7df6de0013323598&product=inline-share-buttons&cms=sop'></script>
     @Styles.Render("~/assets/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/assets/js/vendor/jquery-1.12.0.min.js" crossorigin="anonymous"></script>
     @Scripts.Render("~/assets/jquery_1_12_0")
-
+    <script type='text/javascript' async="async" src='https://platform-api.sharethis.com/js/sharethis.js#property=5f0b407d7df6de0013323598&product=inline-share-buttons&cms=sop'></script>
     <style>
         .pagination_style ul li.active a {
             width: auto;
@@ -201,7 +201,6 @@
         }
 
     </script>
-
 </head>
 <body>
     @Html.Hidden("hfShoppingSizes")
@@ -307,17 +306,20 @@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&ViewContext.RouteData.Values["Controller"].ToString()=="Home" ?"active":"")">
                                         @Html.ActionLink("Home", "Index", "Home")
                                     </li>
-                                    <li id="btnShop" class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&ViewContext.RouteData.Values["Controller"].ToString()=="Stores"?"active":"")">
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&ViewContext.RouteData.Values["Controller"].ToString()=="Stores"?"active":"")">
                                         @Html.ActionLink("Shops", "Index", "Stores")
                                     </li>
-                                    <li id="btnProduct" class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&(ViewContext.RouteData.Values["Controller"].ToString()=="Products"||ViewContext.RouteData.Values["Controller"].ToString()=="ProductDetails") ?"active":"")">
-                                        @Html.ActionLink("Products", "Index", "Products",null, new { id="btProduct" })
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&(ViewContext.RouteData.Values["Controller"].ToString()=="Products"||ViewContext.RouteData.Values["Controller"].ToString()=="ProductDetails") ?"active":"")">
+                                        @Html.ActionLink("Products", "Index", "Products")
                                     </li>
                                     @*<li>
-                                            @Html.ActionLink("About Us", "Index", "AboutUs")
-                                        </li>*@
+            @Html.ActionLink("About Us", "Index", "AboutUs")
+        </li>*@
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Index"&&ViewContext.RouteData.Values["Controller"].ToString()=="ContactUs" ?"active":"")">
                                         @Html.ActionLink("Contact Us", "Index", "ContactUs")
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Register your shop", "Index", "StoreRegistration")
                                     </li>
                                 </ul>
                             </div>
@@ -336,6 +338,7 @@
                                         <li>
                                             @Html.ActionLink("Contact Us", "Index", "ContactUs")
                                         </li>
+                                        
                                     </ul>
                                 </nav>
                             </div>
@@ -344,7 +347,7 @@
                     <div class="col-lg-2">
                         <div class="contact_phone">
                             <div class="contact_icone">
-                                <a href="https://wa.me/923047608860" target="_blank">
+                                <a href="https://wa.me/923047608860">
                                     <span style="font-size:38px" class="fa fa-whatsapp"></span>
                                 </a>
                             </div>
@@ -363,9 +366,32 @@
 
     @RenderBody()
 
-    @RenderSection("BestSellerArea", required:false)
-
-    
+    @*<!--best seller area start-->
+    <div class="produtc_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="product_tab_button">
+                        <ul class="nav" role="tablist">
+                            <li>
+                                <a class="active" data-toggle="tab" href="#BestSellers" role="tab" aria-controls="BestSellers" aria-selected="true">Best Sellers</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="BestSellers" role="tabpanel">
+                    <div class="row">
+                        <div class="product_active owl-carousel" id="DivBestSellersOwlcarouselTop">
+                            <div class="loader"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--best seller area end-->*@
     <!--categories banner start-->
     <div class="categorie_banner">
         <div class="container">
@@ -466,28 +492,26 @@
                             </ul>
                         </div>*@
 
-
                         <div class="row">
                                 <div class="col-md-12" style="margin-top: 18px;">
                                     <div class="single_shipping">
                                         <div class="shipping_icone">
-                                            <span style="font-size:40px;"><i class="fab fa-facebook"></i></span>
+                                            <span><i class="fab fa-facebook"></i></span>
                                         </div>
                                         <div class="shipping_content">
-                                            <h3 style="font-size:14px;"><a href="https://www.facebook.com/thepreshop" target="_blank">Preshop</a></h3>
+                                            <h3><a href="#">Preshop</a></h3>
                                             <p>Follow our facebook page!</p>
                                         </div>
                                     </div>
                                 </div>
-
                             
                                 <div class="col-md-12" style="margin-top: 18px;">
                                     <div class="single_shipping">
                                         <div class="shipping_icone">
-                                            <span style="margin-left: -41px; font-size:40px;"><i class="fab fa-instagram"></i></span>
+                                            <span style="margin-left: -41px;"><i class="fab fa-instagram"></i></span>
                                         </div>
                                         <div class="shipping_content">
-                                            <h3 style="font-size:14px;"><a href="https://www.instagram.com/thepreshop" target="_blank">ThePreshop</a></h3>
+                                            <h3><a href="#">ThePreshop</a></h3>
                                             <p>Instagram Support!</p>
                                         </div>
                                     </div>
@@ -496,10 +520,10 @@
                                 <div class="col-md-12" style="margin-top: 18px;">
                                     <div class="single_shipping">
                                         <div class="shipping_icone">
-                                            <span style="margin-left:-22px; font-size:40px;"><i class="fab fa-twitter-square"></i></span>
+                                            <span style="margin-left:-20px;"><i class="fab fa-twitter-square"></i></span>
                                         </div>
                                         <div class="shipping_content">
-                                            <h3 style="font-size:14px;"><a href="https://www.twitter.com/yourpreshop" target="_blank">@@Preshop</a></h3>
+                                            <h3><a href="#">@@Preshop</a></h3>
                                             <p>Follow for latest news!</p>
                                         </div>
                                     </div>
@@ -521,17 +545,17 @@
                                 </div>
                             </div>*@
                     </div>
-                    <div class="col-lg-4 col-md-8">
-                        <div class="single_footer d-flex justify-content-center align-items-center">
+                    <div class="col-lg-4 col-md-8" style="text-align:center;">
+                        <div class="single_footer">
                             <ul>
                                 <li> @Html.ActionLink("Contact Us", "Index", "ContactUs")</li>
                                 <li> @Html.ActionLink("About Us", "Index", "AboutUs")</li>
-                                <li><a href="#">FAQs</a></li>
+                                <li>@Html.ActionLink("FAQs", "Index", "FAQS")</li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-8">
-                        <div class="single_footer d-flex justify-content-center align-items-center">
+                        <div class="single_footer">
                             <ul>
                                 <li>@Html.ActionLink("Create Account", "Index", "Registration")</li>
                                 <li>@Html.ActionLink("Register your shop", "Index", "StoreRegistration")</li>
@@ -706,18 +730,6 @@
     @Scripts.Render("~/Scripts/Validation")
     @Scripts.Render("~/assets/javascripts")
     @RenderSection("scripts", required: false)
-    
-    <script>
-        $(function () {
-            $('#btProduct').click(function () {
-                console.log('osama');
-                //$('#btnProduct').addClass("active");
-                //$('#btnShop').removeClass("active");
-                
-            });
-        });
-    </script>
-
     <script src="~/assets/RateYo/jquery.rateyo.min.js"></script>
     <script>
         $('.FileUploadLogo').filestyle({
@@ -857,6 +869,7 @@
             //if ($.cookie("disablePopup") == null) {
             //    OpenPopUp("SubscribePopup");
             //}
+            BindStore();
         });
 
         
@@ -1108,6 +1121,5 @@
             });
     }
     </script>
-
 </body>
 </html>
