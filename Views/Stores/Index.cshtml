@@ -31,7 +31,6 @@
             <div class="row">
                 <div class="col-12">
                     <button class="active" data-filter="*">all</button>
-
                     @foreach (var item in Model.GetStoreTypes())
                     {
                         <button data-filter=".@item.StoreType.Replace(" ", "")" style="margin-top: 5px;margin-left: 5px;">@item.StoreType</button>
